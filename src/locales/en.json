@@ -1,0 +1,31 @@
+{
+  "title": "Vue 3 i18n",
+  "description": "A Vue i18n next example using vue-i18n-next",
+  "home": "home",
+  "about": "about",
+  "gallery": "gallery",
+  "contact": "contact",
+  "homepage": "...................",
+  "Services": "Our Services",
+  "deprission": "Deprission",
+  "relationIssus": "Relationship Issus",
+  "anxity": "Anxity",
+  "SessionsTypes": "Our Session Types",
+  "psychologicalSupport": "psychological support",
+  "supportSesstion": "...........................",
+  "PychologicalSupport": "Pychological Support",
+  "courseContent": "Course Content",
+  "char1": " characteristics of someone who can provide psychosocial support",
+  "char2": "Diseases and mental disorders that arise with crises and psychological trauma, and when cases are referred for psychological treatment",
+  "char3": "Dealing with grief, the triggering of loss and trauma, and how to cope with the stress of a crisis",
+  "char4": "Levels of psychological support and its mechanisms. And an overview of the preparation of programs.",
+  "char5": "Supporting psychological supporters and dealing with the pressures of work in this field",
+  "apply": "apply now"
+
+}
+
+
+
+
+
+
