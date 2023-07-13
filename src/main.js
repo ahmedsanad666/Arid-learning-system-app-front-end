@@ -13,9 +13,7 @@ import {
   // faInstagram,
   faGooglePlus,
 } from "@fortawesome/free-brands-svg-icons";
-import { BProgress } from "bootstrap-vue";
-// import 'bootstrap-vue/dist/bootstrap-vue.css'
-// import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
 import i18n from "./i18n";
 
 
