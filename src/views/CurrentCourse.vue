@@ -6,18 +6,58 @@
         <div class="container lg:w-1/2 w-3/4 ">
     
             
+            <div class="py-4 px-3  mt-4 mb-8  rounded-xl  shadow-xl shadow-zinc-600 w-[80%]   relative  circleBox flex  justify-between ">
+                     <div class="text-[#444654] font-bold  mx-2">Started Date : {{ CourseDetails.startedData    }}</div>
+                     <div class="text-[#444654] font-bold  mx-2">Total Points: {{ CourseDetails.TotalPoints }}</div>
+                         <div class="  flex flex-col justify-center items-center point" >
+                     <span class="font-bold">
+
+                         {{ userProgress.userPoints }} 
+                     </span> 
+                  <span>
+
+                      Point
+                  </span>
+            </div>
+                    <div class="circle ">
+
+                        <circle-progress 
+                        
+                        
+                        :is-gradient="true"
+                        size="90"
+                :percent="pointsBar"
+                :border-width="6"
+                :border-bg-width="6"
+                :gradient="{
+                    angle: 90,
+                    startColor: '#ff0000',
+                    stopColor: '#ffff00'
+                }"
+                />
+            </div>
+            </div>
+
+            <!-- ........................... -->
+
+            <div>
+                <div class="text-end text-slate-400 font-bold px-2 my-1">Progress</div>
+                <div class=" w-[99%]  mx-auto h-[3px] rounded-full relative">
+                    
+                    <div class=" rounded-full absolute border border-red-500 left-0 top-0 h-full bg-[#d63031]"   :style="{ width: progressData }">
+
+                    </div>
+                </div>
+            </div>
+          
+            <!-- ................................ -->
             <div>
     
                 <base-intro :CourseDes="CourseDetails.des" :CourseName="CourseDetails.name"></base-intro>
             </div>
-            <div>
-                <div>{{ CourseDetails.startedData }}</div>
-                <div>{{ CourseDetails.TotalPoints }}</div>
-            </div>
-            <div>
-                <div>{{ userProgress.userPoints }}</div>
-                <div>{{ userProgress.progress }}</div>
-            </div>
+            <b-progress></b-progress>
+            
+          
             <div class="py-4 mt-5 mb-2">
     
                 <ul  class=" space-y-5" v-for="(el,key) in chapters" :key="key">
@@ -47,8 +87,10 @@
     
     <script>
     import BaseIntro from '@/components/bases/BaseIntro.vue';
+    import "vue3-circle-progress/dist/circle-progress.css";
+    import CircleProgress from "vue3-circle-progress";
     export default {
-      components: { BaseIntro },
+      components: { BaseIntro,CircleProgress },
        
       data(){
         return{
@@ -70,6 +112,14 @@
         }
       },
     computed:{
+        pointsBar(){
+            let bar = (this.userProgress.userPoints / this.CourseDetails.TotalPoints ) * 100;
+            console.log(bar);
+            return bar;
+        },
+        progressData(){
+            return this.userProgress.progress + '%';
+        },
         courseLessons(){
             
             let id = this.$route.params.userCourse;
@@ -175,6 +225,25 @@ ul{
           color:#ecf0f1;
 
         }
-      
     }
+    
+
+    .circleBox{
+    height: 3rem;
+    
+    .point{
+        position: absolute;
+        top: 0rem;
+    left: -5.2em;
+    color:#636e72;
+    }
+    }
+  .circle{
+    top: -1rem;
+    left: -7em;
+      position: absolute !important;
+     
+    
+  }
+
 </style>

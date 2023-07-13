@@ -13,8 +13,9 @@ import {
   // faInstagram,
   faGooglePlus,
 } from "@fortawesome/free-brands-svg-icons";
-
-
+import { BProgress } from "bootstrap-vue";
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import i18n from "./i18n";
 
 
@@ -41,7 +42,6 @@ const app = createApp(App);
 app.use(router);
 app.use(store);
 app.use(i18n);
-
 // console.log(i18n)
 // global components
 app.component("font-awesome-icon", FontAwesomeIcon);
@@ -52,4 +52,5 @@ app.component("base-intro", BaseIntro);
 app.component("lesson-head",LessonHead);
 app.component("user-data",UserData);
 app.component('all-courses',AllCourses);
+
 app.mount("#app");

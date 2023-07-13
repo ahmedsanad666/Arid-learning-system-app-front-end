@@ -4,24 +4,7 @@
 <section class=" w-full  bg-bgColor py-5   min-h-screen">
 
     <div class="container lg:w-1/2 w-3/4 ">
-  
-  <div class="c">
-
-      
-      <circle-progress
-      :is-gradient="true"
-      size="90"
-      border-width="10"
-      border-bg-width="10"
-      :gradient="{
-          angle: 90,
-          startColor: '#ff0000',
-          stopColor: '#ffff00'
-        }"
-  />
-</div>
-
-
+ 
  
         <div>
 
@@ -56,11 +39,10 @@
 </template>
 
 <script>
-import "vue3-circle-progress/dist/circle-progress.css";
-import CircleProgress from "vue3-circle-progress";
+
 import BaseIntro from '@/components/bases/BaseIntro.vue';
 export default {
-  components: { BaseIntro,CircleProgress },
+  components: { BaseIntro, },
    
   data(){
     return{

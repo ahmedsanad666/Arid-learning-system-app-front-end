@@ -14,8 +14,8 @@ export default {
         userId:1,
         CourseId:1,
         CoursePoints:100,
-        userPoints:60,
-        Progress:70,
+        userPoints:25,
+        Progress:20,
         StartedDate:'12/10/2022',
   
       },
