@@ -7,24 +7,33 @@
     </p>
 </div>
         <div>
-            <ul class=" space-y-4">
+           
+                
+                <ul class=" space-y-4">
                 <li  class="bg-mianColor rounded-lg shadow-md  py-2 px-10 tracking-wide    hover:bg-slate-400" v-for="(el, key) in choices"
-                 :key="key" 
+                    :key="key" 
                     ref="myli"
-                 @click="MyEvent(key)">
-            
+                    @click="MyEvent(key)">
+                    
                     <span class="flex justify-center items-center ">{{ key }}</span> 
                     
                     {{ el }}
                 </li>
+
             </ul>
+          
         </div>
 
   </section>
 </template>
 
 <script>
+import draggable from "vuedraggable";
+
 export default {
+    components: {
+    draggable,
+  },
     props:{
         question:{
             type:String,
@@ -47,6 +56,7 @@ export default {
             showAns:false
         }
     },
+    
     methods:{
         MyEvent(key){
             let li = this.$refs.myli;

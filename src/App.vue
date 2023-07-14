@@ -2,7 +2,7 @@
   <div class="main">
     <nav-bar />
     <router-view />
-    <the-footer/>
+    <the-footer />
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
       }
     },
   },
-  
+
   created() {
     this.lang();
   },

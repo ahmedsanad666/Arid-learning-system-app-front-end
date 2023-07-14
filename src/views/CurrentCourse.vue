@@ -8,7 +8,7 @@
             
             <div class="py-4 px-3  mt-4 mb-8  rounded-xl  shadow-xl shadow-zinc-600 w-[80%]   relative  circleBox flex  justify-between ">
                      <div class="text-[#444654] font-bold  mx-2">Started Date : {{ CourseDetails.startedData    }}</div>
-                     <div class="text-[#444654] font-bold  mx-2">Total Points: {{ CourseDetails.TotalPoints }}</div>
+                     <div class="text-[#444654] font-bold  mx-2" >Total Points: {{ pointTotal}}</div>
                          <div class="  flex flex-col justify-center items-center point" >
                      <span class="font-bold">
 
@@ -64,14 +64,16 @@
                 <li class=" my-2 cursor-pointer select-none" @click="showLessons(el,key)" ref="myli"  >
                    
                       <lesson-head :LessonName="el.name"/>
+
                  </li>
 
                  <ul ref="list" class="subMenu itemRef space-y-2 my-2">
                      
-                        <li v-for="(lesson,key) in lessons" :key="key" class=" relative py-6  "  :class="lesson.chapterId == el.id ?'':'hidden'">
+                        <li v-for="(lesson,key) in lessons" :key="key" class=" relative py-6"  :class="[{ disabled: lesson.active == false }, { hidden: lesson.chapterId !== el.id }]">
                         <router-link class=" lessonLink absolute text-lg w-full  h-full" :to="`/courses/${CourseName}/${lesson.id}`"  >
                             {{ lesson.chapterId == el.id ? lesson.name : ''}}
                         </router-link>
+                        <font-awesome-icon :icon="['fas', 'lock']" v-if="!lesson.active" />
                         </li>
                        
                       </ul>
@@ -98,15 +100,16 @@
             name:'',
             des:'',
             TotalPoints:0,
-            startedData:''
+            startedData:'',
            },
            userProgress:{
             userPoints:0,
-            progress:0,
+           
 
            },
            chapters:[],
-           lessons:[]
+           lessons:[],
+           activeLessonsNumber:0,
 
     
         }
@@ -118,7 +121,10 @@
             return bar;
         },
         progressData(){
-            return this.userProgress.progress + '%';
+
+                let percentage = this.activeLessonsNumber / this.lessons.length;
+              
+            return percentage * 100+ '%';
         },
         courseLessons(){
             
@@ -126,9 +132,30 @@
            
     let lessons = this.$store.getters['courses/allLessons'].filter(obj => obj.courseId == id   );
     return lessons;
+        },
+        pointTotal(){
+        return this.CourseDetails.TotalPoints;
         }
     },
     methods:{
+        getCoursePoints()
+        {
+
+            //get progress
+            this.lessons.forEach(el=>{
+                if(el.active){
+                    this.activeLessonsNumber++;
+                }
+            })
+            // get points 
+            this.lessons.forEach(lesson =>{
+                lesson.slides.forEach(slide=>{
+                    slide.questions.forEach(q =>{
+                       this.CourseDetails.TotalPoints= this.CourseDetails.TotalPoints + q.point;
+                    })
+                })
+            })
+            },
         showLessons(el,key){
 //  let lis = this.$refs.myli;
 
@@ -152,40 +179,33 @@ console.log(this.currentLessons);
             let allCourses = this.$store.getters['courses/allCourses'];
     let CourseData = this.$store.getters['courses/UserCourses'].find(el => el.userId == userid && el.CourseId == CourseId);
     let singleCourse = allCourses.find(el => el.id == CourseId);
-    // console.log(typeof(CourseId) ,typeof( userid ));
                 let currentCourseData ={
-                    TotalPoints : CourseData.CoursePoints,
-                    userPoints:CourseData.userPoints,
-                    progress :CourseData.Progress,
+                
+                  userPoint:CourseData.userPoints,
+                    // progress :CourseData.Progress,
                     startedData:CourseData.StartedDate,
                     CourseDetails:singleCourse,
                     chapters:allChapters,
                     lessons:this.courseLessons
 
                 }
-
-                this.CourseDetails.TotalPoints = currentCourseData.TotalPoints;
+                this.userProgress.userPoints = currentCourseData.userPoint;
                 this.CourseDetails.name = currentCourseData.CourseDetails.name;
                 this.CourseDetails.des = currentCourseData.CourseDetails.des
                 this.CourseDetails.startedData = currentCourseData.startedData;
-                this.userProgress.userPoints = currentCourseData.userPoints;
-                this.userProgress.progress = currentCourseData.progress;
+                // this.userProgress.progress = currentCourseData.progress;
                 this.chapters = currentCourseData.chapters;
                 this.lessons = currentCourseData.lessons;
 
-                console.log(this.CourseDetails.startedData);
-    // const[{
-            //     name:CourseName,
-            //     des:CourseDes
-            // }] = currentCoureData;
-            // this.CourseName = CourseName;
-            // this.CourseDes = CourseDes;
+   
         }
     
     
     },
+   
     created(){
         this.CourseData();
+        this.getCoursePoints();
     }
     
     }
@@ -217,7 +237,11 @@ ul{
         .lessonLink a{
           padding-right: 30px !important;
         }
-   
+        .svg-inline--fa {
+            position: absolute;
+    left: 21px;
+    top: 16px;
+        }
        }
 
         li:nth-child(odd){
@@ -243,7 +267,11 @@ ul{
     left: -7em;
       position: absolute !important;
      
-    
+  
   }
+  .disabled {
+  pointer-events: none; /* Disable pointer events */
+  opacity: 0.6; /* Apply a visual indication of disabled state */
+}
 
 </style>

@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import draggableComponent from "vuedraggable";
 import router from "./router";
 import store from "./store";
 import "./assets/tailwind.css";
@@ -40,6 +41,7 @@ const app = createApp(App);
 app.use(router);
 app.use(store);
 app.use(i18n);
+app.use(draggableComponent);
 // console.log(i18n)
 // global components
 app.component("font-awesome-icon", FontAwesomeIcon);

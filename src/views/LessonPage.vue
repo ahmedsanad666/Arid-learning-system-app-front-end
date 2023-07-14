@@ -74,10 +74,10 @@
 
                           <button class="  bg-cyan-500    py-3 px-9 rounded-xl mx-8 text-mianColor" v-if="currentState === 'quize' && tryAgainR && !isRightAns " @click="resetMode" :disabled="chekDisabled" >tryAgain</button>
 
-                          <button :class="chekDisabled ? ' bg-slate-400 ' : 'bg-[#c0392b]'" class="     py-3 px-9 rounded-xl mx-8 text-mianColor" v-if="currentState === 'quize' && !tryAgainR && isRightAns" @click="nexQuestion" :disabled="chekDisabled" >Next</button>
+                          <button ref="next" :class="chekDisabled ? ' bg-slate-400 ' : 'bg-[#c0392b]'" class="      py-3 px-9 rounded-xl mx-8 text-mianColor" v-if="currentState === 'quize' && !tryAgainR && isRightAns && next" @click="nexQuestion" :disabled="chekDisabled " >Next</button>
                         
   
-                          <button :class="chekDisabled ? ' bg-slate-400 ' : 'bg-[#2bc062]'" class="     py-3 px-9 rounded-xl mx-8 text-mianColor" v-if="currentState === 'quize'  && nextSlide && isRightAns" @click="nextSlideB" :disabled="chekDisabled" >Next lesson</button>
+                          <button ref="nextLesson" :class="chekDisabled ? ' bg-slate-400 ' : 'bg-[#2bc062]'" class="     py-3 px-9 rounded-xl mx-8 text-mianColor" v-if="currentState === 'quize'  && nextSlide && isRightAns" @click="nextSlideB" :disabled="chekDisabled" >Next lesson</button>
                         </div>
                     </div>
             </div>
@@ -104,6 +104,8 @@ export default {
             slideCounter:0,
             questionCounter:0,
             Score:0,
+            next:true,
+            
             disableLock:false,
           
          allSlides:[],
@@ -156,6 +158,9 @@ export default {
         
      
          nextSlideB(){
+          if(this.slideCounter >=  this.allSlides.length -1 ){
+             return;
+            }
             this.slideCounter++;
             this.isRightAns = false;
             this.tryAgain = false;
@@ -169,7 +174,10 @@ export default {
 
          },
         nexQuestion(){
-            
+            if(this.questionCounter >=  this.currentSlide.questions.length -1 ){
+
+             return;
+            }
             this.questionCounter++;
             this.isRightAns = false;
             this.tryAgain = false;
@@ -195,6 +203,7 @@ this.currentChoice = key;
             const rithAns = this.currentQuestion.answer;
           this.checkedMode = true;
             if(choice == rithAns){
+              this.Score = this.Score + this.currentQuestion.point;
              this.isRightAns = true;
 
             }else{
@@ -223,6 +232,8 @@ this.currentChoice = key;
       
       this.allSlides = lessonSlide;
       this.lessonName = lessonName;
+
+    
            
           
         },
@@ -237,7 +248,6 @@ this.currentChoice = key;
         this.Score =this.Score + el.point ;
       });
         
-      console.log(this.Score);
         
         
     },
@@ -294,5 +304,9 @@ this.loadCurrentSlide();
 }
 .lock{
     cursor: pointer;
+}
+.disabled{
+  background: rgba($color: #ccc, $alpha: 1.0);
+display: none;
 }
 </style>

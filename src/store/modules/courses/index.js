@@ -13,8 +13,8 @@ export default {
         userCourseId:1,
         userId:1,
         CourseId:1,
-        CoursePoints:100,
-        userPoints:25,
+        // CoursePoints:100,
+        userPoints:70,
         Progress:20,
         StartedDate:'12/10/2022',
   
@@ -23,7 +23,7 @@ export default {
         userCourseId:2,
         userId:1,
         CourseId:2,
-        CoursePoints:100,
+        // CoursePoints:100,
         userPoints:20,
         Progress:20,
         StartedDate:'12/10/2022',
@@ -33,7 +33,7 @@ export default {
         userCourseId:3,
         userId:2,
         CourseId:1,
-        CoursePoints:100,
+        // CoursePoints:100,
         userPoints:50,
         Progress:50,
         StartedDate:'12/10/2022',
@@ -43,7 +43,7 @@ export default {
         userCourseId:4,
         userId:2,
         CourseId:2,
-        CoursePoints:100,
+        // CoursePoints:100,
         userPoints:60,
         Progress:70,
         StartedDate:'12/10/2022',
@@ -53,7 +53,7 @@ export default {
         userCourseId:5,
         userId:3,
         CourseId:1,
-        CoursePoints:100,
+        // CoursePoints:100,
         userPoints:80,
         Progress:80,
         StartedDate:'2/10/2004',
@@ -99,7 +99,7 @@ export default {
           index:1,
           name:'intro to csharp',
           isHidden:false,
-  
+      
   
         },
         { 
@@ -108,6 +108,8 @@ export default {
           index:2,
           name:'intermidiate csharp',
           isHidden:false,
+        
+
   
   
         },
@@ -117,6 +119,7 @@ export default {
           index:1,
           name:'intro in html',
           isHidden:false,
+        
   
   
         },
@@ -126,6 +129,8 @@ export default {
           index:2,
           name:'intermidiate in html',
           isHidden:false,
+       
+
   
   
         },
@@ -135,6 +140,8 @@ export default {
           index:1,
           name:'intro in javascirpt',
           isHidden:false,
+        
+
   
   
         },
@@ -144,6 +151,8 @@ export default {
           index:2,
           name:'intermidiate in javascript',
           isHidden:false,
+         
+
   
   
         },
@@ -154,6 +163,8 @@ export default {
           id:52,
           courseId:1,
           chapterId:1,
+          active:true,
+          
           name:'variables in csharp',   
           slides:[
             {
@@ -199,21 +210,23 @@ export default {
               questions:[
                 {
                   questoin:'Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen ',
-                  choices:['flase ans',"true ans",'false ans'],
+                  choices:['flase',"true ans",'false ans'],
                   answer:2,
-                  point:10
+                  point:10,
                 },
                 {
-                  questoin:'qifsd kadsfk sdafkc sdafhkouoe  fiakds',
-                  choices:['dd',"rr",'vvv'],
-                  answer:1,
-                  point:10
+                  questoin:'Complete the ..... of code below',
+                  choices:['dd',"line",'code '],
+                  answer:2,
+                  point:10,
+
                 },
                 {
                   questoin:'Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen ',
                   choices:['flase ans',"true ans",'false ans'],
                   answer:2,
-                  point:10
+                  point:10,
+
                 },
                
               ]
@@ -294,6 +307,8 @@ export default {
           id:44,
           courseId:1,
           chapterId:1,
+          active:false,
+
           name:'data types csharp',
           slides:[
             {
@@ -338,6 +353,8 @@ export default {
           id:12578,
           courseId:1,
           chapterId:2,
+          active:false,
+
           name:'oop in csharp',
           slides:[
             {
@@ -382,6 +399,8 @@ export default {
           id:120,
           courseId:2,
           chapterId:3,
+          active:true,
+
           name:'variables  in html',
           slides:[
             {
@@ -426,6 +445,8 @@ export default {
           id:124,
           courseId:2,
           chapterId:4,
+          active:false,
+
           name:'oop in html',
           slides:[
             {
@@ -470,6 +491,8 @@ export default {
           id:125,
           courseId:3,
           chapterId:5,
+          active:true,
+
           name:'vaiables  in js',
           slides:[
             {
@@ -514,6 +537,8 @@ export default {
           id:56712,
           courseId:3,
           chapterId:6,
+          active:false,
+
           name:'oop in js',
           slides:[
             {

@@ -68,8 +68,6 @@ return courseLessons;
 methods:{
     CourseData(){
         let CourseId = this.$route.params.CourseDetails;
-
-
 let currentCoureData = this.$store.getters['courses/allCourses'].filter(el => el.id == CourseId);
         const[{
             name:CourseName,
