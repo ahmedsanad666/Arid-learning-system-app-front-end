@@ -181,7 +181,7 @@ console.log(this.currentLessons);
     let singleCourse = allCourses.find(el => el.id == CourseId);
                 let currentCourseData ={
                 
-                  userPoint:CourseData.userPoints,
+                  userPoint:CourseData.userPoints,  
                     // progress :CourseData.Progress,
                     startedData:CourseData.StartedDate,
                     CourseDetails:singleCourse,

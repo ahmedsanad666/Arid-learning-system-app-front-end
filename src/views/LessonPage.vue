@@ -2,7 +2,7 @@
 
     <section class=" bg-mianColor h-screen py-4 ">
 
-        <div class=" flex justify-between items-center mx-auto  py-6 mb-3 w-[90%] border-secondText border-b  ">
+        <div class=" flex justify-between items-center mx-auto  py-6 mb-3 w-[90%] border-secondText border-b   ">
          
                 <base-button @click="Exit()" text="Exit"  class=" text-mianColor px-7"  bg="bg-red"
                 />

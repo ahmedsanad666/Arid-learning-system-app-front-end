@@ -1,8 +1,8 @@
-import actions from './actions';
+import actions from "./actions";
 
-import getters from './getters';
+import getters from "./getters";
 
-import mutations from './mutations';
+import mutations from "./mutations";
 
 export default {
   namespaced:true,
@@ -15,9 +15,8 @@ export default {
         CourseId:1,
         // CoursePoints:100,
         userPoints:70,
-        Progress:20,
-        StartedDate:'12/10/2022',
-  
+        StartedDate:"12/10/2022",
+        lastLessson:1
       },
         {
         userCourseId:2,
@@ -25,8 +24,9 @@ export default {
         CourseId:2,
         // CoursePoints:100,
         userPoints:20,
-        Progress:20,
-        StartedDate:'12/10/2022',
+        StartedDate:"12/10/2022",
+        lastLessson:1
+
   
       },
         {
@@ -35,8 +35,9 @@ export default {
         CourseId:1,
         // CoursePoints:100,
         userPoints:50,
-        Progress:50,
-        StartedDate:'12/10/2022',
+        StartedDate:"12/10/2022",
+        lastLessson:1
+
   
       },
         {
@@ -45,8 +46,9 @@ export default {
         CourseId:2,
         // CoursePoints:100,
         userPoints:60,
-        Progress:70,
-        StartedDate:'12/10/2022',
+        StartedDate:"12/10/2022",
+        lastLessson:1
+
   
       },
         {
@@ -55,49 +57,21 @@ export default {
         CourseId:1,
         // CoursePoints:100,
         userPoints:80,
-        Progress:80,
-        StartedDate:'2/10/2004',
+        StartedDate:"2/10/2004",
+        lastLessson:1
+
   
       },
     ],
-      courses:[
-        {
-          id:1,
-          name:"مقدمه فى سى شارب ",
-          des:"C# is used by many large organizations, start-ups and beginners alike. It takes some of the useful features of C and adds syntax to save time and effort. Although C# is based on C, you can learn it without any knowledge of C - in fact, this course is perfect for those with no coding experience at all! And if you enjoy learning C# you can continue to our Intermediate C# course.",
-         CreaedDate:'11/10/2000',
-         LastUpdate:'12/3/2003',
-         active:true,
-         isFeatured:true
-  
-         
-        },
-        {
-          id:2,
-          name:"js",
-          des:"C# is used by many large organizations, start-ups and beginners alike. It takes some of the useful features of C and adds syntax to save time and effort. Although C# is based on C, you can learn it without any knowledge of C - in fact, this course is perfect for those with no coding experience at all! And if you enjoy learning C# you can continue to our Intermediate C# course.",
-          CreaedDate:'2/12/2001',
-          LastUpdate:'12/5/2004',
-          active:false,
-          isFeatured:false
-         },
-        {
-          id:3,
-          name:"css",
-          des:"C# is used by many large organizations, start-ups and beginners alike. It takes some of the useful features of C and adds syntax to save time and effort. Although C# is based on C, you can learn it without any knowledge of C - in fact, this course is perfect for those with no coding experience at all! And if you enjoy learning C# you can continue to our Intermediate C# course.",
-          CreaedDate:'5/10/2000',
-          LastUpdate:'12/3/2003',
-          active:true,
-          isFeatured:true
-         
-        },
+         courses:[
+ 
       ],
       CoureChapters:[
         {
           id:1,
           CourseId:1,
           index:1,
-          name:'intro to csharp',
+          name:"intro to csharp",
           isHidden:false,
       
   
@@ -106,7 +80,7 @@ export default {
            id:2,
           CourseId:1,
           index:2,
-          name:'intermidiate csharp',
+          name:"intermidiate csharp",
           isHidden:false,
         
 
@@ -117,7 +91,7 @@ export default {
            id:3,
           CourseId:2,
           index:1,
-          name:'intro in html',
+          name:"intro in html",
           isHidden:false,
         
   
@@ -127,7 +101,7 @@ export default {
            id:4,
           CourseId:2,
           index:2,
-          name:'intermidiate in html',
+          name:"intermidiate in html",
           isHidden:false,
        
 
@@ -138,7 +112,7 @@ export default {
            id:5,
           CourseId:3,
           index:1,
-          name:'intro in javascirpt',
+          name:"intro in javascirpt",
           isHidden:false,
         
 
@@ -149,7 +123,7 @@ export default {
            id:6,
           CourseId:3,
           index:2,
-          name:'intermidiate in javascript',
+          name:"intermidiate in javascript",
           isHidden:false,
          
 
@@ -164,66 +138,67 @@ export default {
           courseId:1,
           chapterId:1,
           active:true,
+          index:1,
           
-          name:'variables in csharp',   
+          name:"variables in csharp",   
           slides:[
             {
               id:54,
               content:`
-              <div class="row">
-    <div class="leftcolumn">
-      <div class="card">
-        <h2>TITLE HEADING</h2>
-        <h5>Title description, Dec 7, 2017</h5>
-        <div class="fakeimg" style="height:200px;">Image</div>
-        <p>Some text..</p>
-      </div>
-      <div class="card">
-        <h2>TITLE HEADING</h2>
-        <h5>Title description, Sep 2, 2017</h5>
-        <div class="fakeimg" style="height:200px;">Image</div>
-        <p>Some text..</p>
-      </div>
-    </div>
-    <div class="rightcolumn">
-      <div class="card">
-        <h2>About Me</h2>
-        <div class="fakeimg" style="height:100px;">Image</div>
-        <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-      </div>
-      <div class="card">
-        <h3>Popular Post</h3>
-        <div class="fakeimg">Image</div><br>
-        <div class="fakeimg">Image</div><br>
-        <div class="fakeimg">Image</div>
-      </div>
-      <div class="card">
-        <h3>Follow Me</h3>
-        <p>Some text..</p>
-      </div>
-    </div>
-  </div>
-  
-  <div class="footer">
-    <h2>Footer</h2>
-  </div>`,
+                  <div class="row">
+                  <div class="leftcolumn">
+                    <div class="card">
+                      <h2>TITLE HEADING</h2>
+                      <h5>Title description, Dec 7, 2017</h5>
+                      <div class="fakeimg" style="height:200px;">Image</div>
+                      <p>Some text..</p>
+                    </div>
+                    <div class="card">
+                      <h2>TITLE HEADING</h2>
+                      <h5>Title description, Sep 2, 2017</h5>
+                      <div class="fakeimg" style="height:200px;">Image</div>
+                      <p>Some text..</p>
+                    </div>
+                  </div>
+                  <div class="rightcolumn">
+                    <div class="card">
+                      <h2>About Me</h2>
+                      <div class="fakeimg" style="height:100px;">Image</div>
+                      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+                    </div>
+                    <div class="card">
+                      <h3>Popular Post</h3>
+                      <div class="fakeimg">Image</div><br>
+                      <div class="fakeimg">Image</div><br>
+                      <div class="fakeimg">Image</div>
+                    </div>
+                    <div class="card">
+                      <h3>Follow Me</h3>
+                      <p>Some text..</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="footer">
+                  <h2>Footer</h2>
+                </div>`,
               questions:[
                 {
-                  questoin:'Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen ',
-                  choices:['flase',"true ans",'false ans'],
+                  questoin:"Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen ",
+                  choices:["flase","true ans","false ans"],
                   answer:2,
                   point:10,
                 },
                 {
-                  questoin:'Complete the ..... of code below',
-                  choices:['dd',"line",'code '],
+                  questoin:"Complete the ..... of code below",
+                  choices:["dd","line","code "],
                   answer:2,
                   point:10,
 
                 },
                 {
-                  questoin:'Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen ',
-                  choices:['flase ans',"true ans",'false ans'],
+                  questoin:"Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen Complete the line of code below to send a message to the screen ",
+                  choices:["flase ans","true ans","false ans"],
                   answer:2,
                   point:10,
 
@@ -273,8 +248,8 @@ export default {
   </div>`,
               questions:[
                 {
-                  questoin:'slide 2 queisti',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"slide 2 queisti",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -284,17 +259,17 @@ export default {
            
             {
               id:11,
-              content:'this is  3 slide',
+              content:"this is  3 slide",
               questions:[
                 {
-                  questoin:'sldid 3 q1',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sldid 3 q1",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'slide 2 q',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"slide 2 q",
+                  choices:["sd","sdf","ds"],
                   answer:2,
                   point:10
                 },
@@ -308,22 +283,24 @@ export default {
           courseId:1,
           chapterId:1,
           active:false,
+          index:2,
 
-          name:'data types csharp',
+
+          name:"data types csharp",
           slides:[
             {
               id:105,
-              content:'sadfjkladsfjkljdsfakjdfkj',
+              content:"sadfjkladsfjkljdsfakjdfkj",
               questions:[
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10,
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -331,17 +308,17 @@ export default {
             },
             {
               id:1093,
-              content:'hi this is slide 2',
+              content:"hi this is slide 2",
               questions:[
                 {
-                  questoin:'s eisti 1',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"s eisti 1",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -354,22 +331,24 @@ export default {
           courseId:1,
           chapterId:2,
           active:false,
+          index:3,
 
-          name:'oop in csharp',
+
+          name:"oop in csharp",
           slides:[
             {
               id:357,
-              content:'js',
+              content:"js",
               questions:[
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -377,17 +356,17 @@ export default {
             },
             {
               id:951,
-              content:'hi this is slide 2',
+              content:"hi this is slide 2",
               questions:[
                 {
-                  questoin:'slide 2 queisti 1',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"slide 2 queisti 1",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -400,22 +379,24 @@ export default {
           courseId:2,
           chapterId:3,
           active:true,
+          index:1,
 
-          name:'variables  in html',
+
+          name:"variables  in html",
           slides:[
             {
               id:357,
-              content:'js',
+              content:"js",
               questions:[
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -423,17 +404,17 @@ export default {
             },
             {
               id:951,
-              content:'hi this is slide 2',
+              content:"hi this is slide 2",
               questions:[
                 {
-                  questoin:'slide 2 queisti 1',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"slide 2 queisti 1",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -446,22 +427,24 @@ export default {
           courseId:2,
           chapterId:4,
           active:false,
+          index:2,
 
-          name:'oop in html',
+
+          name:"oop in html",
           slides:[
             {
               id:357,
-              content:'js',
+              content:"js",
               questions:[
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -469,17 +452,17 @@ export default {
             },
             {
               id:951,
-              content:'hi this is slide 2',
+              content:"hi this is slide 2",
               questions:[
                 {
-                  questoin:'slide 2 queisti 1',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"slide 2 queisti 1",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -492,22 +475,24 @@ export default {
           courseId:3,
           chapterId:5,
           active:true,
+          index:1,
 
-          name:'vaiables  in js',
+
+          name:"vaiables  in js",
           slides:[
             {
               id:357,
-              content:'js',
+              content:"js",
               questions:[
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -515,17 +500,17 @@ export default {
             },
             {
               id:951,
-              content:'hi this is slide 2',
+              content:"hi this is slide 2",
               questions:[
                 {
-                  questoin:'slide 2 queisti 1',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"slide 2 queisti 1",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -538,22 +523,24 @@ export default {
           courseId:3,
           chapterId:6,
           active:false,
+          index:2,
 
-          name:'oop in js',
+
+          name:"oop in js",
           slides:[
             {
               id:357,
-              content:'js',
+              content:"js",
               questions:[
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
@@ -561,17 +548,17 @@ export default {
             },
             {
               id:951,
-              content:'hi this is slide 2',
+              content:"hi this is slide 2",
               questions:[
                 {
-                  questoin:'slide 2 queisti 1',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"slide 2 queisti 1",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },
                 {
-                  questoin:'sadfjlk',
-                  choices:['sd',"sdf",'ds'],
+                  questoin:"sadfjlk",
+                  choices:["sd","sdf","ds"],
                   answer:1,
                   point:10
                 },

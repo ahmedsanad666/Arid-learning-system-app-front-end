@@ -22,6 +22,7 @@ export default {
     OurServices,
     OurSessions,
   },
+ 
 };
 </script>
 

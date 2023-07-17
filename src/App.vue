@@ -21,13 +21,26 @@ export default {
         document.querySelector("html").dir = "ltr";
       }
     },
+   
+    async loadCourses(){
+      console.l
+      try{
+        await this.$store.dispatch('courses/AllCourses');
+      }catch(e){
+        console.log(e);
+      
+    }
+  },
+ 
   },
 
   created() {
     this.lang();
-  },
+  this.loadCourses();  
 
-  // },
+},
+
+
 };
 </script>
 
