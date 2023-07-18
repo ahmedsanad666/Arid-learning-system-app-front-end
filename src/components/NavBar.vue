@@ -27,9 +27,7 @@
           }}</router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'contact' }">{{
-            $t("contact")
-          }}</router-link>
+          <router-link :to="{ name: 'admin' }">لوحة التحكم</router-link>
         </li>
       </ul>
     

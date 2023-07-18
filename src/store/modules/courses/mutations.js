@@ -4,6 +4,18 @@ export default {
   },
   LoadAllCourses(state,payload){
     state.courses = payload;
-    console.log(state.courses);
-  }
+  },
+  LoadUserCourses(state,payload){
+    state.UserCourses = payload;
+  },
+  LoadCoureChapters(state,payload){
+      
+        state.CoureChapters = payload;
+  },
+  LoadLessons(state,payload){
+      
+    //single lesson have => lesson , quesiotns , slides
+        state.lessons = payload;
+  },
+
 };

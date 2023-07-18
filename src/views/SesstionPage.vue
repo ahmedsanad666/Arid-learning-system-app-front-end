@@ -45,7 +45,6 @@ export default {
   computed: {
     enDir() {
       this.text = this.$store.getters.getDir;
-      console.log(this.text);
     },
   },
 };

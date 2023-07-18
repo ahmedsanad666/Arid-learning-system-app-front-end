@@ -25,7 +25,7 @@ export default {
         LastName:'abdulla',
         Email:'mohamed@gmail.com',
         passwork:'sdfiebjdsf',
-        role:2,
+        role:0,
 
 
       },
@@ -35,7 +35,7 @@ export default {
         LastName:'saaid',
         Email:'hamzasaaid@gmail.com',
         passwork:'5edgexx',
-        role:2,
+        role:0,
       },
 
     ],

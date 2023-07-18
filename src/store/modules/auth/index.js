@@ -11,6 +11,7 @@ export default {
       userId: 1,
       token: null,
       tokenExpiration: null,
+      IsAdmin:false
     };
   },
   mutations,

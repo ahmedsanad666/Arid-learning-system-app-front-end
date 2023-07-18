@@ -11,6 +11,7 @@ import CourseDetailsPage from '../views/CourseDetailsPage';
 import LessonPage from '../views/LessonPage';
 import ProfilePage from '../views/ProfilePage';
 import CurrentCourse from '../views/CurrentCourse';
+import AdminPage from '../views/Admin/AdminPage';
 
 const routes = [
   {
@@ -99,7 +100,15 @@ const routes = [
   meta:{
     title:'Course'
   }
-} 
+},{
+  path:'/Admin',
+  name:'admin',
+  component:AdminPage,
+  meta:{
+    title:"Admin"
+  }
+}
+
 ];
 
 const router = createRouter({

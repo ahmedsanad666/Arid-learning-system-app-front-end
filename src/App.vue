@@ -10,7 +10,19 @@
 import NavBar from "./components/NavBar.vue";
 export default {
   components: { NavBar },
+  data(){
+    return{
+      IsAdmin:false,
+      
+    }
+  },
   methods: {
+
+    checkRole(){
+        let currentUserId = this.$store.getters['auth/userId'];
+        let currentUser = this.$store.getters['students/allUsers'].find(u => u.id == currentUserId);
+       this.IsAdmin =  currentUser.role ? !this.IsAdmin: this.IsAdmin;
+      },
     lang() {
       const currentLang = localStorage.getItem("lang");
       if (currentLang === "ar") {
@@ -21,22 +33,15 @@ export default {
         document.querySelector("html").dir = "ltr";
       }
     },
+
    
-    async loadCourses(){
-      console.l
-      try{
-        await this.$store.dispatch('courses/AllCourses');
-      }catch(e){
-        console.log(e);
-      
-    }
-  },
+
  
   },
 
   created() {
     this.lang();
-  this.loadCourses();  
+  this.checkRole();  
 
 },
 
