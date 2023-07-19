@@ -12,6 +12,9 @@ import LessonPage from '../views/LessonPage';
 import ProfilePage from '../views/ProfilePage';
 import CurrentCourse from '../views/CurrentCourse';
 import AdminPage from '../views/Admin/AdminPage';
+import ChaptersPage from '../views/Admin/ChaptersPage';
+import ManageLesson from '../views/Admin/ManageLesson';
+import ManageSlides from '../views/Admin/ManageSlides';
 
 const routes = [
   {
@@ -107,7 +110,34 @@ const routes = [
   meta:{
     title:"Admin"
   }
-}
+},
+{
+  path:'/Admin/:CourseId',
+  name:'editChapter',
+  component:ChaptersPage,
+  meta:{
+    title:'Edit Chapter'
+  }
+
+},
+{
+  path:'/Admin/:CourseId/:ChapterId',
+  name:'ManageLesson',
+  component:ManageLesson,
+  meta:{
+    title:'Manage Lesson'
+  }
+
+},
+{
+  path:'/Admin/Lessons/:lessonId',
+  name:'ManageSlides',
+  component:ManageSlides,
+  meta:{
+    title:'Manage slides'
+  }
+
+},
 
 ];
 

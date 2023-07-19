@@ -11,7 +11,7 @@
 
 <base-spinner v-if="isLoading"></base-spinner>
   <ul class="w-3/4 space-y-3 mx-auto my-4 " >
-    <li class=" bg-mainText py-3 px-2 rounded-lg" v-for="(item,key) in allCourses" :key="key">
+    <li class=" bg-mainText py-3 px-2 rzounded-lg" v-for="(item,key) in allCourses" :key="key">
       <router-link :to="`/courses/${item.id}`" class=" text-mianColor border flex px-5 items-center font-bold  tracking-wider" >
           {{ item.name }}
       </router-link>

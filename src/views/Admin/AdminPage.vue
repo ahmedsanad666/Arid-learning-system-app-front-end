@@ -1,135 +1,250 @@
 <template>
-    <section>
+  <section class="min-h-screen">
+    <h1 class="my-4 py-2 font-bold md:text-3xl text-2xl text-center">
+      admin page
+    </h1>
 
-        <h1 class="my-4 py-2 font-bold md:text-3xl text-2xl text-center"> addmin page </h1>
-        
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <base-spinner v-if="isLoading"></base-spinner>
+    <div class="container py-4 my-3 md:px-2" v-else>
+      <div>
+        <button
+          @click="addNew()"
+          class="my-3 py-2 px-4 bg-slate-900 text-white"
+        >
+          Add new
+        </button>
+      </div>
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table
+          class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+        >
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          >
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Product name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Color
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Category
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Price
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Action
-                </th>
+              <th scope="col" class="px-6 py-3">عنوان الكورس</th>
+              <th scope="col" class="px-6 py-3">الوصف</th>
+              <th scope="col" class="px-6 py-3">تاريخ</th>
+              <th scope="col" class="px-6 py-3">اخر تحيث</th>
+              <th scope="col" class="px-6 py-3">#</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17"
-                </th>
-                <td class="px-6 py-4">
-                    Silver
-                </td>
-                <td class="px-6 py-4">
-                    Laptop
-                </td>
-                <td class="px-6 py-4">
-                    $2999
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
+          </thead>
+          <tbody>
+            <tr v-for="(el, key) in allCourses" :key="key">
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+              >
+                {{ el.name }}
+              </th>
+              <td class="px-6 py-4">{{ el.description }}</td>
+              <td class="px-6 py-4">{{ el.createdDate }}</td>
+              <td class="px-6 py-4">{{ el.updatedDate }}</td>
+              <td class="px-6 py-4 space-x-4 space-y-3 text-center text-white">
+                <button
+                  @click="DeleteCourse(el.id)"
+                  class="py-2 px-4 bg-red-700 rounded-md md:mx-1"
+                >
+                  حذف
+                </button>
+                <button
+                  @click="update(el.id)"
+                  class="py-2 px-4 rounded-md bg-neutral-700 md:mx-1"
+                >
+                  تعديل
+                </button>
+             
+                <router-link  class=" py-2 px-4 rounded-md bg-amber-800 border" :to="`/Admin/${el.id}`">
+                  تفاصيل
+                </router-link>
+          
+                
+              </td>
             </tr>
-            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Microsoft Surface Pro
-                </th>
-                <td class="px-6 py-4">
-                    White
-                </td>
-                <td class="px-6 py-4">
-                    Laptop PC
-                </td>
-                <td class="px-6 py-4">
-                    $1999
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Magic Mouse 2
-                </th>
-                <td class="px-6 py-4">
-                    Black
-                </td>
-                <td class="px-6 py-4">
-                    Accessories
-                </td>
-                <td class="px-6 py-4">
-                    $99
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Google Pixel Phone
-                </th>
-                <td class="px-6 py-4">
-                    Gray
-                </td>
-                <td class="px-6 py-4">
-                    Phone
-                </td>
-                <td class="px-6 py-4">
-                    $799
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple Watch 5
-                </th>
-                <td class="px-6 py-4">
-                    Red
-                </td>
-                <td class="px-6 py-4">
-                    Wearables
-                </td>
-                <td class="px-6 py-4">
-                    $999
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-</section>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
+    <!-- ................... add new section -->
+
+    <div class="container md:w-1/2 w-3/4" v-if="!hidden">
+      <h1 class="md:text-3xl text-3xl text-center">{{ AddNewMood ? 'اضافة كورس جديد':"تعديل " }} </h1>
+      <form @submit.prevent="submitData">
+        <div class="form-control">
+          <label for="name">Name</label>
+          <input type="text" id="name" v-model.trim="updateCourseData.name" />
+        </div>
+        <div class="form-control">
+          <label for="des">description</label>
+          <textarea
+            type="text"
+            id="des"
+            v-model.trim="updateCourseData.description"
+          ></textarea>
+        </div>
+        <div class="form-control">
+          <label for="active">IsActive</label>
+          <input
+            type="checkbox"
+            id="active"
+            v-model="updateCourseData.isActive"
+          />
+        </div>
+
+        <div class="form-control">
+          <label for="feat">isFeatured</label>
+          <input
+            type="checkbox"
+            id="feat"
+            v-model="updateCourseData.isFeatured"
+          />
+        </div>
+
+        <p v-if="!formIsValid">Please dont leave blank inputs.</p>
+        <button class="py-2 px-4 rounded-md bg-neutral-700 md:mx-1">
+          Submit
+        </button>
+      </form>
+    </div>
+  </section>
 </template>
 
 <script>
 export default {
-    data(){
-        return{
+  data() {
+    return {
+      hidden: true,
+      isLoading: false,
+      allCourses: [],
+      formatedDate: "",
+      error: "",
+      courseId: 0,
+      updateCourseData: {
+        name: "",
+        description: "",
+        isActive: true,
+        isFeatured: true,
+      },
+      formIsValid: true,
+      AddNewMood: false,
+    };
+  },
+  methods: {
+    async loadCourses() {
+      this.isLoading = true;
 
-           
+      try {
+        await this.$store.dispatch("courses/AllCourses");
+        this.allCourses = this.$store.getters["courses/allCourses"];
+      } catch (e) {
+        this.Error = "failed to Get Courses" || e.message;
+      }
+      this.isLoading = false;
+    },
+    async DeleteCourse(id) {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch("courses/deleteCourse", id);
+        await this.$store.dispatch("courses/AllCourses");
+        this.allCourses = this.$store.getters["courses/allCourses"];
+      } catch (e) {
+        this.error = e.message || "failed to delete";
+      }
+      this.isLoading = false;
+    },
+    update(id) {
+      let course = this.allCourses.find((el) => el.id == id);
+      this.AddNewMood = false;
+      this.courseId = id;
+      this.updateCourseData = course;
+      this.hidden = false;
+    },
+    addNew() {
+      this.AddNewMood = true;
+      this.hidden = false;
+    },
+    async submitData() {
+      this.formIsValid = true;
+      if (
+        this.updateCourseData.name === "" ||
+        this.updateCourseData.description === ""
+      ) {
+        this.formIsValid = false;
+        return;
+      }
+
+      this.isLoading = true;
+      let payload ;
+      if(this.AddNewMood){
+
+         payload = {
+  
+          name: this.updateCourseData.name,
+          description: this.updateCourseData.description,
+          isActive: this.updateCourseData.isActive,
+          isFeatured: this.updateCourseData.isFeatured,
+        };
+      }else{
+
+         payload = {
+          id: this.courseId,
+          name: this.updateCourseData.name,
+          description: this.updateCourseData.description,
+          isActive: this.updateCourseData.isActive,
+          isFeatured: this.updateCourseData.isFeatured,
+        };
+      }
+      try {
+        if (this.AddNewMood) {
+          await this.$store.dispatch("courses/AddCourse", payload);
+        } else {
+          await this.$store.dispatch("courses/UpdateCourse", payload);
         }
-    }
-    
-    
-}
+
+      } catch (e) {
+        this.error = e.message || "failed to update";
+      }
+      this.isLoading = false;
+      this.$router.push("/courses");
+    },
+  },
+
+  created() {
+    this.loadCourses();
+  },
+};
 </script>
 
-<style>
+<style scoped>
+form {
+  margin: 1rem;
+  padding: 1rem;
+}
 
+.form-control {
+  margin: 0.5rem 0;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  font: inherit;
+  border: 1px solid #ccc;
+  padding: 0.15rem;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #3d008d;
+  background-color: #faf6ff;
+  outline: none;
+}
 </style>

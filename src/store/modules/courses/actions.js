@@ -82,4 +82,183 @@ export default {
 
         context.commit("LoadLessons",combinedData);
     },
+
+    //........................ course curd operations..........
+    async deleteCourse(_,payload){
+      const response = await fetch(`https://localhost:7263/arid/courses/${payload}`,
+      {
+        method:'DELETE',
+      });
+      
+      if(!response.ok){
+        const Error = new Error(response.message || "failed to delete");
+      }
+      
+    },
+    async UpdateCourse(_,payload){
+      const response = await fetch(`https://localhost:7263/arid/courses/${payload.id}`,
+      {
+        method:'PUT',  
+        headers: {
+          'Content-Type': 'application/json', // Set the Content-Type header to application/json
+        },
+        body: JSON.stringify(payload)
+      });
+      // const responseData = await response.json();
+      
+      if(!response.ok){
+        // const err = new Error(responseData.message|| 'failed ');
+        console.log( response);
+      }
+    },
+    
+    async AddCourse(_,payload){
+      const response = await fetch(`https://localhost:7263/arid/courses`,
+      {
+        method:'POST',  
+        headers: {
+          'Content-Type': 'application/json', // Set the Content-Type header to application/json
+        },
+        body: JSON.stringify(payload)
+      });
+      // const responseData = await response.json();
+      
+      if(!response.ok){
+        // const err = new Error(responseData.message|| 'failed ');
+        console.log( response);
+      }
+    },
+    
+    //........................ chapter curd operations..........
+    
+    async deletechapter(_,payload){
+    const response = await fetch(`https://localhost:7263/arid/coursechapter/${payload}`,
+    {
+      method:'DELETE',
+    });
+    
+    if(!response.ok){
+      const Error = new Error(response.message || "failed to delete");
+    }
+    
+  },
+  
+
+
+  async UpdateChapter(_,payload){
+    const response = await fetch(`https://localhost:7263/arid/coursechapter/${payload.id}`,
+    {
+      method:'PUT',  
+      headers: {
+        'Content-Type': 'application/json', // Set the Content-Type header to application/json
+      },
+      body: JSON.stringify(payload)
+    });
+    // const responseData = await response.json();
+    
+    if(!response.ok){
+      // const err = new Error(responseData.message|| 'failed ');
+      console.log( response);
+    }
+  },
+  
+  async AddChapter(_,payload){
+    const response = await fetch(`https://localhost:7263/arid/coursechapter`,
+    {
+      method:'POST',  
+      headers: {
+        'Content-Type': 'application/json', // Set the Content-Type header to application/json
+      },
+      body: JSON.stringify(payload)
+    });
+    // const responseData = await response.json();
+    
+    if(!response.ok){
+      // const err = new Error(responseData.message|| 'failed ');
+      console.log( response);
+    }
+
+  console.log(response);
+  },
+  
+//.................................... curd for lesssons 
+
+async deletelesson(_,payload){
+  const response = await fetch(`https://localhost:7263/arid/lesson/${payload}`,
+  {
+    method:'DELETE',
+  });
+  
+  if(!response.ok){
+    const Error = new Error(response.message || "failed to delete");
+  }
+  
+},
+
+async UpdateLesson(_,payload){
+  const response = await fetch(`https://localhost:7263/arid/lesson/${payload.id}`,
+  {
+    method:'PUT',  
+    headers: {
+      'Content-Type': 'application/json', // Set the Content-Type header to application/json
+    },
+    body: JSON.stringify(payload)
+  });
+  // const responseData = await response.json();
+  
+  if(!response.ok){
+    // const err = new Error(responseData.message|| 'failed ');
+    console.log( response);
+  }
+},
+
+async AddLesson(_,payload){
+  const response = await fetch(`https://localhost:7263/arid/lesson`,
+  {
+    method:'POST',  
+    headers: {
+      'Content-Type': 'application/json', // Set the Content-Type header to application/json
+    },
+    body: JSON.stringify(payload)
+  });
+  // const responseData = await response.json();
+  
+  if(!response.ok){
+    // const err = new Error(responseData.message|| 'failed ');
+    console.log( response);
+  }
+
+console.log(response);
+},
+
+
+async AddSlides(_,payload){
+  console.log(payload,'action');
+  const response = await fetch(`https://localhost:7263/arid/lesson/AddSlides`,
+  {
+    method:'POST',  
+    headers: {
+      'Content-Type': 'application/json', // Set the Content-Type header to application/json
+    },
+    body: JSON.stringify(payload)
+  });
+  // const responseData = await response.json();
+  
+  if(!response.ok){
+    // const err = new Error(responseData.message|| 'failed ');
+    console.log( response);
+  }
+
+  console.log(JSON.stringify(payload));
+console.log(response);
+},
+
+
+
+
+
+
+
+
+
 };
