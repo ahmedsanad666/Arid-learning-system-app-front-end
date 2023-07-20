@@ -22,7 +22,7 @@
             <li
               v-for="(lesson, key) in courseLessons"
               :key="key"
-              class="relative py-6"
+              class="relative py-6 disabled"
               :class="lesson.chapterId == el.id ? '' : 'hidden'"
             >
               <router-link
@@ -62,6 +62,7 @@ export default {
     },
   },
   methods: {
+    
     async CourseData() {
       let CourseId = this.$route.params.CourseDetails;
 
@@ -148,5 +149,9 @@ ul {
   border: 1px red solid;
   height: 3rem;
   position: relative;
+}
+.disabled {
+  pointer-events: none; /* Disable pointer events */
+  opacity: 0.6; /* Apply a visual indication of disabled state */
 }
 </style>

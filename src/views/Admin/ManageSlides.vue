@@ -180,7 +180,7 @@ export default {
 
       try{
         await this.$store.dispatch("courses/AddSlides", this.allSlides);
-
+        this.$router.go(-1);
       }catch(e){
         this.error = e.message || "failed to send slides";
       }

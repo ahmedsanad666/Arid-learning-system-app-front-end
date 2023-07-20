@@ -117,18 +117,18 @@
             ref="next"
             :class="chekDisabled ? ' bg-slate-400 ' : 'bg-[#c0392b]'"
             class="py-3 px-9 rounded-xl mx-8 text-mianColor"
-            v-if="currentState === 'quize' && !tryAgainR && isRightAns && next"
+            v-if="currentState === 'quize' && !tryAgainR && isRightAns  && !endLesson && next"
             @click="nexQuestion"
             :disabled="chekDisabled"
           >
             Next
           </button>
-
+          <button  @click="updateCourseData()" class="py-3 px-9 rounded-xl mx-8 text-mianColor bg-red-700" v-if="endLesson">End Lesson</button>
           <button
             ref="nextLesson"
             :class="chekDisabled ? ' bg-slate-400 ' : 'bg-[#2bc062]'"
             class="py-3 px-9 rounded-xl mx-8 text-mianColor"
-            v-if="currentState === 'quize' && nextSlide && isRightAns"
+            v-if="currentState === 'quize' && nextSlide && !endLesson &&isRightAns"
             @click="nextSlideB"
             :disabled="chekDisabled"
           >
@@ -182,6 +182,7 @@ export default {
         answer: 1,
         point: 1,
       },
+      endLesson:false,
     };
   },
   computed: {
@@ -197,16 +198,51 @@ export default {
     },
   },
   methods: {
+    async updateCourseData(){
+      let lessonId = this.$route.params.lessonId;
+      await this.$store.dispatch('courses/userCourses');
+      await this.$store.dispatch("courses/LoadLessons");
+    
+      /////////.............
+        let allLessons = this.$store.getters["courses/allLessons"];
+        let currentLesson = allLessons.filter((el) => el.id == lessonId);
+        let userId = this.$store.getters['auth/userId'] + "";
+          // .................
+      let CourseData = this.$store.getters["courses/UserCourses"].find(
+          (el) => el.userId == userId && el.courseId == currentLesson[0].courseId
+        );
+
+        const payload = {
+          id:CourseData.id,
+          userId:userId,
+          lastLesson:CourseData.lastLesson +1,
+          userPoints:this.Score,
+          courseId:currentLesson[0].courseId
+        }
+        
+        try{
+
+          await this.$store.dispatch('courses/updateUserCourse',payload);
+          this.$router.go(-1);
+        }catch(e){
+          console.log(e)
+        }
+        console.log(payload);
+    },
     showRightAns() {
-      this.Score = this.Score - this.currentQuestion.point;
-      this.disableLock = true;
-      this.isRightAns = true;
-      this.chekDisabled = false;
-      this.$refs.quizSec.ShowAnsState(this.currentQuestion.answer);
+      if(this.Score > 0){
+
+        this.Score = this.Score - this.currentQuestion.point;
+        this.disableLock = true;
+        this.isRightAns = true;
+        this.chekDisabled = false;
+        this.$refs.quizSec.ShowAnsState(this.currentQuestion.answer);
+      }
     },
 
     nextSlideB() {
       if (this.slideCounter >= this.allSlides.length - 1) {
+        this.endLesson = true;
         return;
       }
       this.slideCounter++;

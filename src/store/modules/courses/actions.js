@@ -255,9 +255,40 @@ console.log(response);
 
 
 
+async AddUserCourse(_,payload){
+  const response = await fetch(`https://localhost:7263/arid/usercourse`,
+  {
+    method:'POST',  
+    headers: {
+      'Content-Type': 'application/json', // Set the Content-Type header to application/json
+    },
+    body: JSON.stringify(payload)
+  });
+  // const responseData = await response.json();
+  
+  if(!response.ok){
+    // const err = new Error(responseData.message|| 'failed ');
+    console.log( response);
+  }
+},
 
 
-
+async updateUserCourse(_,payload){
+  const response = await fetch(`https://localhost:7263/arid/usercourse/${payload.id}`,
+  {
+    method:'PUT',  
+    headers: {
+      'Content-Type': 'application/json', // Set the Content-Type header to application/json
+    },
+    body: JSON.stringify(payload)
+  });
+  // const responseData = await response.json();
+  
+  if(!response.ok){
+    // const err = new Error(responseData.message|| 'failed ');
+    console.log( response);
+  }
+},
 
 
 

@@ -11,8 +11,12 @@
 
 <base-spinner v-if="isLoading"></base-spinner>
   <ul class="w-3/4 space-y-3 mx-auto my-4 " >
-    <li class=" bg-mainText py-3 px-2 rzounded-lg" v-for="(item,key) in allCourses" :key="key">
-      <router-link :to="`/courses/${item.id}`" class=" text-mianColor border flex px-5 items-center font-bold  tracking-wider" >
+    <li  class=" bg-mainText py-3 px-2 rounded-lg" v-for="(item,key) in allCourses" :key="key">
+     <button v-if="!item.enrolled" @click="enrollCourse(item.id)" class=" text-white absolute left-0 w-[10%] h-full top-0 bg-red-600">تسجيل الان </button>
+
+     
+     <button v-else  class=" text-white absolute left-0 w-[10%] h-full top-0  bg-green-700"> مسجل </button>
+        <router-link  :to="`/courses/${item.id}`" class=" text-mianColor border flex px-5 items-center font-bold  tracking-wider" >
           {{ item.name }}
       </router-link>
   </li>
@@ -31,18 +35,73 @@ export default {
     },
     computed:{
     allCourses(){
+
+        let userCourse = this.$store.getters['courses/UserCourses'];
+
         let courses = this.$store.getters['courses/allCourses'];
-        return  courses;
+
+        let courseData = courses.map(el => {
+  const isEnrolled = userCourse.some(item => item.courseId === el.id);
+
+  return {
+    ...el,
+    enrolled: isEnrolled,
+  };
+});
+console.log(courseData);
+
+        // let courseData =[];
+        // courses.forEach(el => {
+        // //  console.log(el.id);
+        //     userCourse.forEach(item => {
+        //      if(item.courseId == el.id){
+        //          courseData = {
+        //             ...el,
+        //             enrolled:true
+        //          }
+        //      }else{
+        //         courseData = {
+        //             ...el,
+        //             enrolled:false
+        //         }
+        //      }
+             
+        //     });
+        //     console.log(courseData);
+            
+        // });
+      
+        return  courseData;
     },
 
    
 },
 methods:{
+   
+    async enrollCourse(CourseId){
+
+
+     const    payload={
+            userId:this.$store.getters['auth/userId'] + "",
+            userPoints:0,
+            courseId:CourseId
+        }
+        try{
+            await this.$store.dispatch('courses/AddUserCourse',payload);
+            this.$router.push('/profile');
+        }catch(e){
+            this.Error = e.message || "failed to enroll";
+        }
+
+        console.log(payload);
+        console.log(JSON.stringify(payload));
+    },
     async loadCourses(){
         this.isLoading = true;
     
     try{
       await this.$store.dispatch('courses/AllCourses');
+      await this.$store.dispatch('courses/userCourses');
     }catch(e){
       this.Error = "failed to Get Courses" || e.message; 
     
@@ -68,10 +127,10 @@ li{
 
 a{
     position: absolute;
-    width: 100%;
+    width: 90%;
     height: 100%;
     top:0;
-    left: 0;
+    right: 0;
 
 }
 }
