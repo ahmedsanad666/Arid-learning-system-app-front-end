@@ -424,5 +424,7 @@ export default {
 }
 .commentBox {
   transition: 0.3s all linear;
+  background:rgb(241 241 241);
+  z-index: 10;
 }
 </style>

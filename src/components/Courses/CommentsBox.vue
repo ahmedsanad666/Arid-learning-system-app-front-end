@@ -1,5 +1,5 @@
 <template>
-  <section class="space-y-3 absolute h-[70%] py-2 px-3">
+  <section class=" space-y-3 absolute h-[70%] py-2 px-3 w-[95%] m-auto">
     <div class="py-2 flex justify-between items-center">
       <span>{{ count }} Comment </span>
       <span
