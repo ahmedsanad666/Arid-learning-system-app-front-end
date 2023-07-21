@@ -27,6 +27,16 @@
           }}</router-link>
         </li>
         <li>
+          <router-link :to="{ name: 'LeaderBoard' }">
+          LeaderBoard
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'gallery' }">{{
+            $t("gallery")
+          }}</router-link>
+        </li>
+        <li>
           <router-link :to="{ name: 'admin' }">لوحة التحكم</router-link>
         </li>
       </ul>

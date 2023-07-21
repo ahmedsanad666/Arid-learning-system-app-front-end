@@ -15,6 +15,7 @@ import AdminPage from '../views/Admin/AdminPage';
 import ChaptersPage from '../views/Admin/ChaptersPage';
 import ManageLesson from '../views/Admin/ManageLesson';
 import ManageSlides from '../views/Admin/ManageSlides';
+import LeaderBoard from '../views/LeaderBoard';
 
 const routes = [
   {
@@ -135,6 +136,15 @@ const routes = [
   component:ManageSlides,
   meta:{
     title:'Manage slides'
+  }
+
+},
+{
+  path:'/LeaderBoard',
+  name:'LeaderBoard',
+  component:LeaderBoard,
+  meta:{
+    title:'LeaderBoard'
   }
 
 },
