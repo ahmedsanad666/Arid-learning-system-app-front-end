@@ -13,7 +13,14 @@ UserCourses(state){
 ,
 CoureChapters(state){
   return state.CoureChapters;
+},
+slideComments(state){
+  return state.slideComments;
+},
+CommentsCount(state){
+  return state.CommentsCount;
 }
+
 
 };
  

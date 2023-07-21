@@ -17,5 +17,11 @@ export default {
     //single lesson have => lesson , quesiotns , slides
         state.lessons = payload;
   },
-
+  LoadComments(state,payload){
+    state.slideComments = payload;
+  },
+  loadCommentsCount(state,payload){
+  state.CommentsCount = payload;
+  console.log(state.CommentsCount)
+  }
 };

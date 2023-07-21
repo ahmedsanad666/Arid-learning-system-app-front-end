@@ -8,6 +8,8 @@ export default {
   namespaced:true,
   state() {
     return {
+      CommentsCount:0,
+      slideComments:[],
       UserCourses:[
       
     ],

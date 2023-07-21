@@ -291,5 +291,51 @@ async updateUserCourse(_,payload){
 },
 
 
+async SlideComments(context ){
 
+    
+  const response = await fetch("https://localhost:7263/arid/slideComment");
+
+
+    const responseData = await response.json();
+  
+    if (!response.ok) {
+      const error = new Error(responseData.message || 'failed to get comments');
+
+      throw error;
+    }
+
+    const comments =[];
+     responseData.allComments.forEach(element => {
+      comments.push(element);       
+     });
+    
+  const count = responseData.count;
+
+      context.commit("LoadComments",comments);
+      context.commit("loadCommentsCount",count);
+  },
+
+  async AddComment(_,payload ){
+
+    
+    const response = await fetch("https://localhost:7263/arid/slideComment",
+    {
+      method:'POST',
+      headers:{
+        'Content-Type':"application/json"      }
+     ,
+     body:JSON.stringify(payload) 
+    });
+  
+    console.log(JSON.stringify(payload));
+  
+    
+      if (!response.ok) {
+console.log(response)  
+      }
+    
+       console.log(response);
+    },
+  
 };

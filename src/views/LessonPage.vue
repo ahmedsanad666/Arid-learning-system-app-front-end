@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-mianColor h-screen py-4">
+  <section class="bg-mianColor h-screen py-4 relative">
     <div
       class="flex justify-between items-center mx-auto py-6 mb-3 w-[90%] border-secondText border-b"
     >
@@ -23,9 +23,30 @@
     </div>
 
     <!-- ...................... -->
+
     <div
       class="h-3/4 overflow-scroll container bg-[#f9f9f9] lg:w-1/2 w-3/4 shadow-xl rounded-xl quizSec"
     >
+      <!-- ,,,,,,,,,,,,,,,,,,,,,,,,,, comments componnet  -->
+      <div
+        @click="showCommentBox"
+        v-if="!commentBox && currentState == 'quize'"
+        class="cursor-pointer absolute right-4 top-[21%] rounded-lg shadow-xl py-1 px-3"
+      >
+        <span>Slide Comments {{ count }} </span>
+      </div>
+      <div
+        v-else-if="currentState == 'quize' && commentBox"
+        ref="CommentBox"
+        class="commentBox absolute right-4 top-[19%] h-[70%] lg:w-[23%] w-[80%] rounded-lg shadow-lg py-3 px-4"
+      >
+        <comments-box
+          :slideId="currentSlide.id"
+          @hide-comment="HideCommentBox"
+        ></comments-box>
+      </div>
+
+      <!-- .................. comments component  -->
       <div class="py-3 px-4">
         <!-- studing sectino -->
         <div
@@ -39,7 +60,6 @@
             :question="currentQuestion.questionText"
             :choices="currentQuestion.choices"
             :rightAns="currentQuestion.answer"
-         
             ref="quizSec"
             @MyEvent="setCurrentChoice($event)"
           ></quiz-section>
@@ -117,18 +137,32 @@
             ref="next"
             :class="chekDisabled ? ' bg-slate-400 ' : 'bg-[#c0392b]'"
             class="py-3 px-9 rounded-xl mx-8 text-mianColor"
-            v-if="currentState === 'quize' && !tryAgainR && isRightAns  && !endLesson && next"
+            v-if="
+              currentState === 'quize' &&
+              !tryAgainR &&
+              isRightAns &&
+              !endLesson &&
+              next
+            "
             @click="nexQuestion"
             :disabled="chekDisabled"
           >
             Next
           </button>
-          <button  @click="updateCourseData()" class="py-3 px-9 rounded-xl mx-8 text-mianColor bg-red-700" v-if="endLesson">End Lesson</button>
+          <button
+            @click="updateCourseData()"
+            class="py-3 px-9 rounded-xl mx-8 text-mianColor bg-red-700"
+            v-if="endLesson"
+          >
+            End Lesson
+          </button>
           <button
             ref="nextLesson"
             :class="chekDisabled ? ' bg-slate-400 ' : 'bg-[#2bc062]'"
             class="py-3 px-9 rounded-xl mx-8 text-mianColor"
-            v-if="currentState === 'quize' && nextSlide && !endLesson &&isRightAns"
+            v-if="
+              currentState === 'quize' && nextSlide && !endLesson && isRightAns
+            "
             @click="nextSlideB"
             :disabled="chekDisabled"
           >
@@ -143,8 +177,9 @@
 <script>
 import BaseButton from "@/components/bases/BaseButton.vue";
 import QuizSection from "@/components/Courses/QuizSection.vue";
+import CommentsBox from "@/components/Courses/CommentsBox.vue";
 export default {
-  components: { BaseButton, QuizSection },
+  components: { BaseButton, QuizSection, CommentsBox },
 
   data() {
     return {
@@ -182,7 +217,9 @@ export default {
         answer: 1,
         point: 1,
       },
-      endLesson:false,
+      count: 0,
+      endLesson: false,
+      commentBox: false,
     };
   },
   computed: {
@@ -198,40 +235,44 @@ export default {
     },
   },
   methods: {
-    async updateCourseData(){
+    HideCommentBox() {
+      this.commentBox = false;
+      this.$refs.CommentBox.classList.add("hideBox");
+    },
+    showCommentBox() {
+      this.commentBox = true;
+    },
+    async updateCourseData() {
       let lessonId = this.$route.params.lessonId;
-      await this.$store.dispatch('courses/userCourses');
+      await this.$store.dispatch("courses/userCourses");
       await this.$store.dispatch("courses/LoadLessons");
-    
+
       /////////.............
-        let allLessons = this.$store.getters["courses/allLessons"];
-        let currentLesson = allLessons.filter((el) => el.id == lessonId);
-        let userId = this.$store.getters['auth/userId'] + "";
-          // .................
+      let allLessons = this.$store.getters["courses/allLessons"];
+      let currentLesson = allLessons.filter((el) => el.id == lessonId);
+      let userId = this.$store.getters["auth/userId"] + "";
+      // .................
       let CourseData = this.$store.getters["courses/UserCourses"].find(
-          (el) => el.userId == userId && el.courseId == currentLesson[0].courseId
-        );
+        (el) => el.userId == userId && el.courseId == currentLesson[0].courseId
+      );
 
-        const payload = {
-          id:CourseData.id,
-          userId:userId,
-          lastLesson:CourseData.lastLesson +1,
-          userPoints:this.Score,
-          courseId:currentLesson[0].courseId
-        }
-        
-        try{
+      const payload = {
+        id: CourseData.id,
+        userId: userId,
+        lastLesson: CourseData.lastLesson + 1,
+        userPoints: this.Score,
+        courseId: currentLesson[0].courseId,
+      };
 
-          await this.$store.dispatch('courses/updateUserCourse',payload);
-          this.$router.go(-1);
-        }catch(e){
-          console.log(e)
-        }
-        console.log(payload);
+      try {
+        await this.$store.dispatch("courses/updateUserCourse", payload);
+        this.$router.go(-1);
+      } catch (e) {
+        console.log(e);
+      }
     },
     showRightAns() {
-      if(this.Score > 0){
-
+      if (this.Score > 0) {
         this.Score = this.Score - this.currentQuestion.point;
         this.disableLock = true;
         this.isRightAns = true;
@@ -240,11 +281,8 @@ export default {
       }
     },
 
-    nextSlideB() {
-      if (this.slideCounter >= this.allSlides.length - 1) {
-        this.endLesson = true;
-        return;
-      }
+    async nextSlideB() {
+     
       this.slideCounter++;
       this.isRightAns = false;
       this.tryAgain = false;
@@ -253,6 +291,19 @@ export default {
       this.disableLock = false;
       this.currentState = "studying";
       this.loadCurrentSlide();
+
+      try {
+        console.log(this.currentSlide.id);
+        await this.$store.dispatch("courses/SlideComments");
+        this.count = this.$store.getters["courses/CommentsCount"];
+        this.Comments = this.$store.getters["courses/slideComments"];
+      } catch (e) {
+        this.error = e.message || "failed to Load comments";
+      }
+      if (this.slideCounter >= this.allSlides.length - 1) {
+        this.endLesson = true;
+        return;
+      }
     },
     nexQuestion() {
       if (this.questionCounter >= this.currentSlide.questions.length - 1) {
@@ -295,6 +346,9 @@ export default {
       let lessonId = this.$route.params.lessonId;
       try {
         await this.$store.dispatch("courses/LoadLessons");
+        await this.$store.dispatch("courses/SlideComments");
+        this.count = this.$store.getters["courses/CommentsCount"];
+
         let allSlides = this.$store.getters["courses/allLessons"];
         let currentLesson = allSlides.filter((el) => el.id == lessonId);
 
@@ -303,8 +357,7 @@ export default {
         this.allSlides = lessonSlide;
         this.lessonName = lessonName;
         this.loadCurrentSlide();
-      } catch (e) {
-      }
+      } catch (e) {}
 
       // let  = this.$store.getters.allLessons;
     },
@@ -312,7 +365,6 @@ export default {
       this.currentSlide = this.allSlides[this.slideCounter];
       this.questionCounter = 0;
       this.loadCurrentQuestion();
-      console.log(this.currentQuestion);
       // this.currentSlide.questions.forEach((el) => {
       //   // this.Score =this.Score + el.point ;
       // });
@@ -335,6 +387,7 @@ export default {
   created() {
     this.getAllSlides();
     // this.loadCurrentSlide();
+    console.log(this.commentsCount);
   },
 };
 </script>
@@ -364,5 +417,12 @@ export default {
 .disabled {
   background: rgba($color: #ccc, $alpha: 1);
   display: none;
+}
+.hideBox {
+  opacity: 0;
+  right: -100%;
+}
+.commentBox {
+  transition: 0.3s all linear;
 }
 </style>
