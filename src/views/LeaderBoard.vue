@@ -5,12 +5,13 @@
     </h1>
     <div class="container py-3 px-4">
       <ul class="md:w-[50%] w-[90%] m-auto shadow-xl rounded-l-lg space-y-4">
+       
         <li
           class="flex rounded-lg py-3 px-2 justify-between items-center"
           v-for="(item, k) in newData"
           :key="k"
         >
-          <span>{{ k }} | Username</span>
+          <span>{{ item.userId }} | {{ item.FirstName }}</span>
           <span>{{ item.userPoints }}</span>
         </li>
       </ul>
@@ -31,23 +32,26 @@ export default {
       try {
         await this.$store.dispatch("courses/userCourses");
         this.UsersData = this.$store.getters["courses/UserCourses"];
-        // this.UsersData.sort((a, b) => b.points - a.points);
+        const users = this.$store.getters["students/allUsers"];
 
-         this.newData =  this.UsersData.slice().sort((a, b) => b.userPoints - a.userPoints);
-         console.log(this.newData);
+        this.newData = this.UsersData.slice().sort(
+          (a, b) => b.userPoints - a.userPoints
+        );
+
+   this.newData = this.newData.map((e) => {
+          const user = users.find((user) => user.id == e.userId);
+          return { ...e, ...user };
+        });
+        console.log(this.newData);
+        // console.log(this.newData[0]);
       } catch (e) {
         console.log(e);
       }
     },
-    // getSortedArray() {
-    //   this.newData = this.usersPoints();
-    //   console.log(this.newData.data);
-    // },
   },
 
   created() {
     this.usersPoints();
-    // this.getSortedArray();
   },
 };
 </script>

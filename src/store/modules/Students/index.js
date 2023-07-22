@@ -20,6 +20,16 @@ export default {
 
       },
       {
+        id:2,
+        FirstName:'hassan',
+        LastName:'sanad',
+        Email:'Ahmedsanad@gmail.com',
+        passwork:'123drec',
+        role:1,
+
+
+      },
+      {
         id:3,
         FirstName:'mohamed',
         LastName:'abdulla',
