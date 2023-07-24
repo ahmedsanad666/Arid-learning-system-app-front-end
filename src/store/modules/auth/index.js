@@ -8,9 +8,9 @@ export default {
   namespaced:true,
   state() {
     return {
-      userId: 1,
+      userId:1,
       token: null,
-      tokenExpiration: null,
+      // tokenExpiration: null,
       IsAdmin:false
     };
   },

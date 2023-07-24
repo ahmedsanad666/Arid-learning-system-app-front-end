@@ -16,6 +16,7 @@ import ChaptersPage from '../views/Admin/ChaptersPage';
 import ManageLesson from '../views/Admin/ManageLesson';
 import ManageSlides from '../views/Admin/ManageSlides';
 import LeaderBoard from '../views/LeaderBoard';
+import AuthPage from '../views/Auth/AuthPage';
 
 const routes = [
   {
@@ -148,6 +149,14 @@ const routes = [
   }
 
 },
+{
+  path:'/auth',
+  name:'auth',
+  component:AuthPage,
+  meta:{
+    title:"auth page"
+  }
+}
 
 ];
 
