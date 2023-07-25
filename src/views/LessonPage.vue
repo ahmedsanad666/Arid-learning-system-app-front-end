@@ -250,10 +250,10 @@ export default {
       /////////.............
       let allLessons = this.$store.getters["courses/allLessons"];
       let currentLesson = allLessons.filter((el) => el.id == lessonId);
-      let userId = this.$store.getters["auth/userId"] + "";
+      let userId = this.$store.getters["auth/userId"];
       // .................
       let CourseData = this.$store.getters["courses/UserCourses"].find(
-        (el) => el.userId == userId && el.courseId == currentLesson[0].courseId
+        (el) => el.apiUserId == userId && el.courseId == currentLesson[0].courseId
       );
 
       const payload = {

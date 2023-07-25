@@ -1,11 +1,7 @@
 
 export default {
   async AllCourses(context ){
-
-    
     const response = await fetch("https://localhost:7263/arid/courses");
-  
-
       const responseData = await response.json();
     
       if (!response.ok) {
@@ -35,6 +31,7 @@ export default {
        responseData.forEach(element => {
         Usercourses.push(element);       
        });
+      
 
         context.commit("LoadUserCourses",Usercourses);
     },
@@ -113,16 +110,24 @@ export default {
     },
     
     async AddCourse(_,payload){
+
+
+      const token = localStorage.getItem('token');
+      console.log(token);
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      };
+
       const response = await fetch(`https://localhost:7263/arid/courses`,
       {
         method:'POST',  
-        headers: {
-          'Content-Type': 'application/json', // Set the Content-Type header to application/json
-        },
+        headers,
         body: JSON.stringify(payload)
       });
       // const responseData = await response.json();
       
+      console.log(JSON.stringify(payload));
       if(!response.ok){
         // const err = new Error(responseData.message|| 'failed ');
         console.log( response);

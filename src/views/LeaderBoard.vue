@@ -11,7 +11,7 @@
           v-for="(item, k) in newData"
           :key="k"
         >
-          <span>{{ item.userId }} | {{ item.FirstName }}</span>
+          <span>{{ k}} | {{ item.apiUser.userName  }}</span>
           <span>{{ item.userPoints }}</span>
         </li>
       </ul>
@@ -31,17 +31,20 @@ export default {
     async usersPoints() {
       try {
         await this.$store.dispatch("courses/userCourses");
+        await this.$store.dispatch('students/AllUsers')
         this.UsersData = this.$store.getters["courses/UserCourses"];
+
         const users = this.$store.getters["students/allUsers"];
 
+        console.log(this.UsersData);
         this.newData = this.UsersData.slice().sort(
           (a, b) => b.userPoints - a.userPoints
         );
 
-   this.newData = this.newData.map((e) => {
-          const user = users.find((user) => user.id == e.userId);
-          return { ...e, ...user };
-        });
+  //  this.newData = this.newData.map((e) => {
+  //         const user = users.find((user) => user.id == e.userId);
+  //         return { ...e, ...user };
+  //       });
         console.log(this.newData);
         // console.log(this.newData[0]);
       } catch (e) {

@@ -70,15 +70,15 @@
         <h1 class="md:text-3xl text-3xl text-center">{{ AddNewMood ? 'اضافة فصل جديد':"تعديل " }} </h1>
         <form @submit.prevent="submitData">
           <div class="form-control">
-            <label for="name">Name</label>
+            <label for="name">العنوان</label>
             <input type="text" id="name" v-model.trim="updateCourseData.name" />
           </div>
           <div class="form-control">
-            <label for="des">Index</label>
+            <label for="des">الترتيب</label>
           <input type="number" v-model.number="updateCourseData.index">
           </div>
           <div class="form-control">
-            <label for="active">Is active</label>
+            <label for="active">مفعل</label>
             <input
               type="checkbox"
               id="active"
@@ -87,9 +87,9 @@
           </div>
   
          
-          <p v-if="!formIsValid">Please dont leave blank inputs.</p>
+          <p v-if="!formIsValid">لا تترك مدخلات فارغه</p>
           <button class="py-2 px-4 rounded-md bg-neutral-700 md:mx-1">
-            Submit
+            ارسال
           </button>
         </form>
       </div>

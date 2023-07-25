@@ -1,7 +1,7 @@
 <template>
   <section class="min-h-screen">
     <h1 class="my-4 py-2 font-bold md:text-3xl text-2xl text-center">
-      admin page
+      صفحات التحكم
     </h1>
 
     <base-spinner v-if="isLoading"></base-spinner>
@@ -11,7 +11,7 @@
           @click="addNew()"
           class="my-3 py-2 px-4 bg-slate-900 text-white"
         >
-          Add new
+        اضافة
         </button>
       </div>
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -72,11 +72,11 @@
       <h1 class="md:text-3xl text-3xl text-center">{{ AddNewMood ? 'اضافة كورس جديد':"تعديل " }} </h1>
       <form @submit.prevent="submitData">
         <div class="form-control">
-          <label for="name">Name</label>
+          <label for="name">العنوان</label>
           <input type="text" id="name" v-model.trim="updateCourseData.name" />
         </div>
         <div class="form-control">
-          <label for="des">description</label>
+          <label for="des">الوصف</label>
           <textarea
             type="text"
             id="des"
@@ -84,7 +84,7 @@
           ></textarea>
         </div>
         <div class="form-control">
-          <label for="active">IsActive</label>
+          <label for="active">مفعل</label>
           <input
             type="checkbox"
             id="active"
@@ -93,7 +93,7 @@
         </div>
 
         <div class="form-control">
-          <label for="feat">isFeatured</label>
+          <label for="feat">مميز</label>
           <input
             type="checkbox"
             id="feat"
@@ -101,9 +101,9 @@
           />
         </div>
 
-        <p v-if="!formIsValid">Please dont leave blank inputs.</p>
+        <p v-if="!formIsValid">لا تترك مدخلات فارغه.</p>
         <button class="py-2 px-4 rounded-md bg-neutral-700 md:mx-1">
-          Submit
+         ارسال
         </button>
       </form>
     </div>
@@ -202,11 +202,13 @@ export default {
           await this.$store.dispatch("courses/UpdateCourse", payload);
         }
 
+      console.log(payload);
+        // this.$router.push("/courses");
+
       } catch (e) {
         this.error = e.message || "failed to update";
       }
       this.isLoading = false;
-      this.$router.push("/courses");
     },
   },
 

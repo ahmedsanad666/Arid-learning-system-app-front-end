@@ -1,8 +1,7 @@
 <template>
     <section class="min-h-screen">
       <h1 class="my-4 py-2 font-bold md:text-3xl text-2xl text-center">
-    All Course Chapters
-      </h1>
+اقسام الدورة      </h1>
   
       <base-spinner v-if="isLoading"></base-spinner>
       <div class="container py-4 my-3 md:px-2" v-else>
@@ -71,15 +70,15 @@
         <h1 class="md:text-3xl text-3xl text-center">{{ AddNewMood ? 'اضافة فصل جديد':"تعديل " }} </h1>
         <form @submit.prevent="submitData">
           <div class="form-control">
-            <label for="name">Name</label>
+            <label for="name">الاسم</label>
             <input type="text" id="name" v-model.trim="updateCourseData.name" />
           </div>
           <div class="form-control">
-            <label for="des">Index</label>
+            <label for="des">الترتيب</label>
           <input type="number" v-model.number="updateCourseData.index">
           </div>
           <div class="form-control">
-            <label for="active">Is Hidden</label>
+            <label for="active">مفعل</label>
             <input
               type="checkbox"
               id="active"
@@ -88,9 +87,9 @@
           </div>
   
          
-          <p v-if="!formIsValid">Please dont leave blank inputs.</p>
+          <p v-if="!formIsValid">لا تترك مدخلات فارغه</p>
           <button class="py-2 px-4 rounded-md bg-neutral-700 md:mx-1">
-            Submit
+            ارسال
           </button>
         </form>
       </div>

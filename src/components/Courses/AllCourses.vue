@@ -1,7 +1,7 @@
 <template>
     <section class=" min-h-screen">
 
-<h1 class="text-center py-5 font-bold lg:text-3xl text-2xl"> All Courses</h1>
+<h1 class="text-center py-5 font-bold lg:text-3xl text-2xl"> جميع الدورات</h1>
 
 <div v-if="Error" class="  text-red-600 flex items-center justify-center m-auto h-11 shadow-md w-1/3 rounded-lg">
 
@@ -48,28 +48,7 @@ export default {
     enrolled: isEnrolled,
   };
 });
-console.log(courseData);
 
-        // let courseData =[];
-        // courses.forEach(el => {
-        // //  console.log(el.id);
-        //     userCourse.forEach(item => {
-        //      if(item.courseId == el.id){
-        //          courseData = {
-        //             ...el,
-        //             enrolled:true
-        //          }
-        //      }else{
-        //         courseData = {
-        //             ...el,
-        //             enrolled:false
-        //         }
-        //      }
-             
-        //     });
-        //     console.log(courseData);
-            
-        // });
       
         return  courseData;
     },
@@ -82,7 +61,7 @@ methods:{
 
 
      const    payload={
-            userId:this.$store.getters['auth/userId'] + "",
+            apiUserId:this.$store.getters['auth/userId'],
             userPoints:0,
             courseId:CourseId
         }
@@ -93,8 +72,6 @@ methods:{
             this.Error = e.message || "failed to enroll";
         }
 
-        console.log(payload);
-        console.log(JSON.stringify(payload));
     },
     async loadCourses(){
         this.isLoading = true;

@@ -186,10 +186,13 @@ console.log(this.progressData);
           (obj) => obj.courseId == CourseId
         );
 
+        console.log( this.$store.getters["courses/CoureChapters"].filter(
+          (obj) => obj.courseId == CourseId
+        ));
         let allCourses = this.$store.getters["courses/allCourses"];
 
         let CourseData = this.$store.getters["courses/UserCourses"].find(
-          (el) => el.userId == userid && el.courseId == CourseId
+          (el) => el.apiUserId == userid && el.courseId == CourseId
         );
         this.activeLessonsNumber = CourseData.lastLesson;
         let singleCourse = allCourses.find((el) => el.id == CourseId);

@@ -13,40 +13,42 @@
         <li :class="!dir ? 'mx-6 ' : ''">
           <router-link :to="{ name: 'home' }"> {{ $t("home") }}</router-link>
         </li>
-        <li>
+        <!-- <li>
           <router-link :to="{ name: 'about' }">{{ $t("about") }}</router-link>
-        </li>
+        </li> -->
         <li>
-          <router-link :to="{ name: 'courses' }">{{
-            $t("courses") 
-          }} </router-link>
-        </li>
-        <li>
-          <router-link :to="{ name: 'gallery' }">{{
-            $t("gallery")
-          }}</router-link>
-        </li>
-        <li>
-          <router-link :to="{ name: 'LeaderBoard' }">
-          LeaderBoard
+          <router-link :to="{ name: 'courses' }"
+            >{{ $t("courses") }}
           </router-link>
         </li>
-        <li>
+        <!-- <li>
           <router-link :to="{ name: 'gallery' }">{{
             $t("gallery")
           }}</router-link>
+        </li> -->
+        <li v-if="isLoggedIn">
+          <router-link  :to="{ name: 'LeaderBoard' }"> LeaderBoard </router-link>
         </li>
-        <li>
+
+        <li v-if="isLoggedIn && isAdmin ">
           <router-link :to="{ name: 'admin' }">لوحة التحكم</router-link>
         </li>
       </ul>
-    
-      <div  class="  cursor-pointer">
-        <router-link :to="{name: 'Profile'}">
-          <font-awesome-icon :icon="['fas', 'user']" size="xl" class=" p-2 rounded-full hover:bg-redColor shadow-slate-900 shadow-sm hover:border-none hover:shadow-md transition-all " />
+
+      <div class="cursor-pointer">
+        <router-link :to="{ name: 'Profile' }">
+          <font-awesome-icon
+            :icon="['fas', 'user']"
+            size="xl"
+            class="p-2 rounded-full hover:bg-redColor shadow-slate-900 shadow-sm hover:border-none hover:shadow-md transition-all"
+          />
         </router-link>
-        </div>
-        <locale-switcher></locale-switcher>
+      </div>
+      <div class="cursor-pointer">
+        <button v-if="isLoggedIn" @click="logOut()">logOut</button>
+        <router-link  v-else to="/auth">LogIn</router-link>
+      </div>
+      <locale-switcher></locale-switcher>
       <!-- ............. -->
       <!-- hamburger menu -->
       <button
@@ -94,6 +96,12 @@ export default {
     };
   },
   computed: {
+    isLoggedIn() {
+      return this.$store.getters['auth/isAuthenticated']
+    },
+    isAdmin() {
+      return this.$store.getters['auth/isAdmin']
+    },
     currentRoute() {
       return this.$route.name == "home";
     },
@@ -103,6 +111,10 @@ export default {
   },
 
   methods: {
+    logOut() {
+      this.$store.dispatch("auth/logout");
+      this.$router.replace("/home");
+    },
     show() {
       this.showMenu = !this.showMenu;
     },

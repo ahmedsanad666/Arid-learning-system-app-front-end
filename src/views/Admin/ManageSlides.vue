@@ -3,7 +3,7 @@
     <!-- <h1 class="text-center text-3xl">Add Slides</h1> -->
 
     <div class="container py-2 px-3 shadow-lg">
-      <h1 class="text-xl">Loaded Slides</h1>
+      <h1 class="text-xl">تحميل شرائح</h1>
       <h1 v-if="error" class="text-xl">{{ error }}</h1>
 
       <ol v-if="allSlides">
@@ -63,12 +63,13 @@
 
             <ul>
               <li
-                class="py-1 px-2 shadow-md w-1/3"
+                class="py-2 px-3 shadow-md w-1/3  relative"
                 @click="removeChoice(key)"
                 v-for="(choice, key) in currentChoices"
                 :key="key"
               >
-                {{ key }}: {{ choice }}
+              <font-awesome-icon :icon="['fas', 'xmark']"  class=" absolute top-2 left-2  cursor-pointer    p-1 bg-slate-600 text-white" />
+                {{ key + 1 }}: {{ choice }}
               </li>
             </ul>
           </div>
@@ -78,6 +79,7 @@
               v-model.number="slide.questions.answer"
               placeholder="answer"
             />
+            <span> اختر رقم الاجابة الصيحيه</span>
           </div>
           <input
             type="number"
@@ -90,13 +92,13 @@
             class="py-2 px-4 rounded-md text-white bg-neutral-700 md:mx-1"
             @click="addSlide()"
           >
-            load slide
+            تحميل شريحه
           </span>
           <button
             class="py-2 px-4 rounded-md bg-red-500 text-white md:mx-1"
             type="submit"
           >
-            Submit
+            ارسال
           </button>
         </div>
       </form>

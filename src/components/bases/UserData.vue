@@ -13,8 +13,8 @@
                 </span>
                 <div class=" flex justify-center flex-col ">
 
-                    <h1 class="text-2xl font-bold">{{ fullName }}</h1>
-                    <h1>{{ Email }}</h1>
+                 
+                    <h1>{{ name }}</h1>
                     
                     <h1>{{ roleState }}</h1>
                 </div>
@@ -28,29 +28,39 @@ export default {
 
     data(){
         return{
-            FirstName:'',
-            lastName:'',
-            Email:'',
-            role:0
+        userName:'',
+            
+            role:''
 
         }
     },
     computed:{
-        fullName(){
-            return `${this.FirstName} ${this.lastName}`;
-        },
-        roleState(){
-            return this.role === 1 ?'Admin' : 'student';
-        }
+       
+    name(){
+        return this.userName;
+    },
+    roleState(){
+        return this.role;
+    }
     },
     methods:{
-        currentUser(){
-            let userId = this.$store.getters['auth/userId'];
-            let user = this.$store.getters['students/allUsers'].find((el)=> el.id == userId);
-          this.FirstName = user.FirstName;
-          this.lastName = user.LastName;
-          this.Email = user.Email;
-          this.role = 1;
+    async   currentUser(){
+
+        let userId = this.$store.getters['auth/userId'];
+            
+
+        try{
+            await this.$store.dispatch('students/AllUsers')
+                let user = this.$store.getters['students/allUsers'].find((el)=> el.id == userId);
+                // console.log(this.$store.getters['students/allUsers']);
+                // console.log(user);
+                this.userName = user.userName
+            
+                 this.role = user.role;    
+            }catch(e){
+                console.log(e);
+            }
+      
            
         }
     },

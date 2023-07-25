@@ -8,10 +8,10 @@ export default {
   namespaced:true,
   state() {
     return {
-      userId:1,
+      userId:null,
       token: null,
       // tokenExpiration: null,
-      IsAdmin:false
+      role:0
     };
   },
   mutations,

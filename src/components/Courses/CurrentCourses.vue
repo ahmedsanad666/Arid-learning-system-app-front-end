@@ -44,12 +44,17 @@ async currentCours(){
     try{
       await this.$store.dispatch('courses/AllCourses');
       await this.$store.dispatch("courses/userCourses");
-      let userCoursesData = this.$store.getters['courses/UserCourses'].filter(
-            (el) => (el.userId == currentUserId)
-        );
+      await this.$store.dispatch('students/AllUsers')
 
+    
+      let userCoursesData = this.$store.getters['courses/UserCourses'].filter(
+            (el) => (el.userId === currentUserId)
+        );
+        console.log( userCoursesData = this.$store.getters['courses/UserCourses'].filter(
+            (el) => (el.apiUserId === currentUserId)
+        ));
+        
         let AllCourses = this.$store.getters['courses/allCourses'];
-      
 
         userCoursesData.forEach((courseData) =>{
             AllCourses.forEach(el =>{
@@ -59,6 +64,7 @@ async currentCours(){
                 }
             })
         })
+
 
     }catch(e){
       this.Error = "failed to Get Courses" || e.message; 

@@ -1,7 +1,7 @@
 export default {
  
 allUsers(state){
-  return state.users;
+  return state.allUsers;
 },
 
 

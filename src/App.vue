@@ -18,11 +18,11 @@ export default {
   },
   methods: {
 
-    checkRole(){
-        let currentUserId = this.$store.getters['auth/userId'];
-        let currentUser = this.$store.getters['students/allUsers'].find(u => u.id == currentUserId);
-       this.IsAdmin =  currentUser.role ? !this.IsAdmin: this.IsAdmin;
-      },
+    // checkRole(){
+    //     let currentUserId = this.$store.getters['auth/userId'];
+    //     let currentUser = this.$store.getters['students/allUsers'].find(u => u.id == currentUserId);
+    //    this.IsAdmin =  currentUser.role ? !this.IsAdmin: this.IsAdmin;
+    //   },
     lang() {
       const currentLang = localStorage.getItem("lang");
       if (currentLang === "ar") {
@@ -41,8 +41,8 @@ export default {
 
   created() {
     this.lang();
-  this.checkRole();  
-
+    this.$store.dispatch('auth/tryLogin');
+    
 },
 
 
