@@ -1,7 +1,8 @@
 <template>
-    <section class=" bg-bgColor" >
+    <section class=" bg-bgColor" >  
 
-        <user-data class=" bg-mianColor">
+        <base-profile @close = "hideTable" v-if="updateTable"></base-profile>
+        <user-data @update-table="showUpdateTable" class=" bg-mianColor">
             
         </user-data>
         <div class="m-auto   md:w-3/4">
@@ -16,11 +17,28 @@
 
 <script>
 import CurrentCourses from '@/components/Courses/CurrentCourses.vue'
+import BaseProfile from '@/components/bases/BaseProfile.vue'
 export default {
-  components: { CurrentCourses },
+    components: { CurrentCourses ,BaseProfile},
+    data(){
+        return{
+            updateTable:false,
+        }
+    },
+    methods:{
+        showUpdateTable(){
+            this.updateTable = true;
+           console.log(this.updateTable)
+        },
+        hideTable(){
+            this.updateTable = false;
+        }
+    }
+    
 
 }
 </script>
+    BaseProfile
 
 <style>
 

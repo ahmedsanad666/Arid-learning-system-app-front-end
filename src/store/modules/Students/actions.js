@@ -16,4 +16,30 @@ export default {
     
             context.commit("setAllUsers",allUsers);
         },
+        async UpdateUser(context,payload){
+
+
+        
+         
+          const headers = {
+            
+            'Content-Type': 'application/json'
+          };
+    
+          const response = await fetch(`https://localhost:7263/arid/auth/updateuser`,
+          {
+            method:'POST',  
+            headers,
+            body: JSON.stringify(payload)
+          });
+          // const responseData = await response.json();
+          
+          console.log(JSON.stringify(payload));
+          if(!response.ok){
+            // const err = new Error(responseData.message|| 'failed ');
+            console.log( response);
+          }
+          context.dispatch("AllUsers");
+          console.log(response);
+        },
 };
