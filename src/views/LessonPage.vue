@@ -152,7 +152,7 @@
           <button
             @click="updateCourseData()"
             class="py-3 px-9 rounded-xl mx-8 text-mianColor bg-red-700"
-            v-if="endLesson"
+            v-if="endLesson && isRightAns"
           >
             End Lesson
           </button>
@@ -183,6 +183,7 @@ export default {
 
   data() {
     return {
+      lesssonNumber : 0,
       currentState: "studying",
       lessonName: "",
       currentChoice: 1,
@@ -197,7 +198,6 @@ export default {
       next: true,
 
       disableLock: false,
-
       allSlides: [],
       currentSlide: {
         id: "",
@@ -258,9 +258,9 @@ export default {
 
       const payload = {
         id: CourseData.id,
-        userId: userId,
-        lastLesson: CourseData.lastLesson + 1,
-        userPoints: this.Score,
+        apiUserId: userId,
+        lastLesson: this.lesssonNumber === CourseData.lastLesson ? CourseData.lastLesson :  CourseData.lastLesson + 1 ,
+        userPoints: this.Score + CourseData.userPoints,
         courseId: currentLesson[0].courseId,
       };
 
@@ -351,11 +351,17 @@ export default {
 
         let allSlides = this.$store.getters["courses/allLessons"];
         let currentLesson = allSlides.filter((el) => el.id == lessonId);
-
-        const [{ name: lessonName, slides: lessonSlide }] = currentLesson;
-
+      
+        const [{ name: lessonName, slides: lessonSlide,courseId: CourseId  }] = currentLesson;
+        
+   
+       
+      /// get all lessons number to prevent increase the last lesson num in db in the last lesson 
+      this.lesssonNumber = allSlides.filter(el=> el.courseId === CourseId).length;
         this.allSlides = lessonSlide;
         this.lessonName = lessonName;
+
+
         this.loadCurrentSlide();
       } catch (e) {}
 

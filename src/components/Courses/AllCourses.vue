@@ -12,10 +12,10 @@
 <base-spinner v-if="isLoading"></base-spinner>
   <ul class="w-3/4 space-y-3 mx-auto my-4 " >
     <li  class=" bg-mainText py-3 px-2 rounded-lg" v-for="(item,key) in allCourses" :key="key">
-     <button v-if="!item.enrolled" @click="enrollCourse(item.id)" class=" text-white absolute left-0 w-[10%] h-full top-0 bg-red-600">تسجيل الان </button>
+     <button v-if="!item.enrolled && isLoggedIn" @click="enrollCourse(item.id)" class=" text-white absolute left-0 w-[10%] h-full top-0 bg-red-600">تسجيل الان </button>
 
      
-     <button v-else  class=" text-white absolute left-0 w-[10%] h-full top-0  bg-green-700"> مسجل </button>
+     <button v-else-if="isLoggedIn" class=" text-white absolute left-0 w-[10%] h-full top-0  bg-green-700"> مسجل </button>
         <router-link  :to="`/courses/${item.id}`" class=" text-mianColor border flex px-5 items-center font-bold  tracking-wider" >
           {{ item.name }}
       </router-link>
@@ -34,15 +34,20 @@ export default {
             }
     },
     computed:{
+        isLoggedIn() {
+      return this.$store.getters['auth/isAuthenticated']
+    },
     allCourses(){
 
         let userCourse = this.$store.getters['courses/UserCourses'];
-
+        let UserId = this.$store.getters['auth/userId'];
         let courses = this.$store.getters['courses/allCourses'];
 
         let courseData = courses.map(el => {
-  const isEnrolled = userCourse.some(item => item.courseId === el.id);
-
+  const isEnrolled = userCourse.some(item => item.courseId === el.id && item.apiUserId === UserId );
+userCourse.forEach(element => {
+    console.log(element)
+});
   return {
     ...el,
     enrolled: isEnrolled,

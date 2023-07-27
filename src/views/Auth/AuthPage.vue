@@ -207,6 +207,9 @@
                 <option value="user">مستخدم</option>
                 <option value="admin">مشرف</option>
               </select>
+              <p class="text-md text-red-800" v-if="!role.isValid"> {{ role.error }}</p>
+
+              
             </div>
             <button
             
@@ -313,6 +316,11 @@ export default {
         if(this.userName.val === '' ){
           this.userName.isValid = false
           this.userName.error = "لا يمكن ان يكون الحقل خال"
+          this.ValidForm = false;
+        };
+        if(this.role.val === '' ){
+          this.role.isValid = false
+          this.role.error = "لا يمكن ان يكون الحقل خال"
           this.ValidForm = false;
         };
 

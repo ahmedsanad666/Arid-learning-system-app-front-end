@@ -124,9 +124,16 @@ export default {
       return bar;
     },
     progressData() {
-      let percentage = this.activeLessonsNumber / this.lessons.length;
+      console.log(this.activeLessonsNumber)
+      if(this.activeLessonsNumber == 1){
 
-      return percentage * 100 + "%";
+        return 0 + '%';
+      }else{
+        
+        let percentage = this.activeLessonsNumber  / this.lessons.length;
+        
+        return percentage * 100 + "%";
+      }
     },
     courseLessons() {
       let id = this.$route.params.userCourse;

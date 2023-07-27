@@ -35,7 +35,7 @@
         </li>
       </ul>
 
-      <div class="cursor-pointer">
+      <div class="cursor-pointer"  v-if="isLoggedIn">
         <router-link :to="{ name: 'Profile' }">
           <font-awesome-icon
             :icon="['fas', 'user']"
@@ -48,7 +48,7 @@
         <button v-if="isLoggedIn" @click="logOut()">logOut</button>
         <router-link  v-else to="/auth">LogIn</router-link>
       </div>
-      <locale-switcher></locale-switcher>
+      <locale-switcher class="hidden"></locale-switcher>
       <!-- ............. -->
       <!-- hamburger menu -->
       <button
