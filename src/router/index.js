@@ -17,6 +17,11 @@ import ManageLesson from '../views/Admin/ManageLesson';
 import ManageSlides from '../views/Admin/ManageSlides';
 import LeaderBoard from '../views/LeaderBoard';
 import AuthPage from '../views/Auth/AuthPage';
+// blog system
+import AllBlogs from '../views/Blog/AllBlogs';
+import SingleBlog from '../views/Blog/SingleBlog';
+import addBlog from '../views/Blog/addBlog';
+
 
 const routes = [
   {
@@ -156,6 +161,35 @@ const routes = [
   meta:{
     title:"auth page"
   }
+},
+{
+  path:'/Blogs',
+  name:"Blogs",
+  component:AllBlogs,
+  meta:{
+    title:'blogs',
+  }
+
+},
+{
+  path:'/Blogs/AddBlog'
+  ,
+  name:'AddBlog',
+  component:addBlog,
+  meta:{
+    title:'add blog'
+  }
+  
+},
+{
+  path:'/Blogs/:BlogId'
+  ,
+  name:'SingleBlog',
+  component:SingleBlog,
+  meta:{
+    title:'blog'
+  }
+  
 }
 
 ];

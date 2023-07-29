@@ -33,6 +33,9 @@
         <li v-if="isLoggedIn && isAdmin ">
           <router-link :to="{ name: 'admin' }">لوحة التحكم</router-link>
         </li>
+        <li>
+          <router-link :to="{ name: 'Blogs' }">المدونة </router-link>
+        </li>
       </ul>
 
       <div class="cursor-pointer"  v-if="isLoggedIn">

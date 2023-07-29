@@ -35,6 +35,7 @@ import LessonHead from './components/bases/LessonHead';
 import UserData from './components/bases/UserData';
 import AllCourses from './components/Courses/AllCourses';
 import BaseSpinner from './components/bases/BaseSpinner';
+import BaseTextArea from './components/bases/BaseTextArea';
 library.add(fas, faTwitter, faFacebook, faInstagramSquare, faGooglePlus);
 
 const app = createApp(App);
@@ -53,5 +54,6 @@ app.component("lesson-head",LessonHead);
 app.component("user-data",UserData);
 app.component('all-courses',AllCourses);
 app.component('base-spinner',BaseSpinner);
+app.component('base-textarea',BaseTextArea);
 
 app.mount("#app");
