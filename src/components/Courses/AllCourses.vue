@@ -16,7 +16,7 @@
 
      
      <button v-else-if="isLoggedIn" class=" text-white absolute left-0 w-[10%] h-full top-0  bg-green-700"> مسجل </button>
-        <router-link  :to="`/courses/${item.id}`" class=" text-mianColor border flex px-5 items-center font-bold  tracking-wider" >
+        <router-link  :to=" item.enrolled ?`/profile/${item.id}` : `/courses/${item.id}`" class=" text-mianColor border flex px-5 items-center font-bold  tracking-wider" >
           {{ item.name }}
       </router-link>
   </li>

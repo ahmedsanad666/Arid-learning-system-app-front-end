@@ -79,6 +79,13 @@
             <font-awesome-icon :icon="['fas', 'xmark']" class="mx-4" /> Wront
             Answer
           </div>
+          <div
+           v-if="showWarning "
+            class="border-2 max-w-xl mx-auto flex justify-center relative items-center rounded-md text-red-900 md:text-3xl text-xl border-red-500 py-4 px-3"
+          >
+          <font-awesome-icon :icon="['fas', 'xmark']" class=" cursor-pointer  absolute right-2 top-2  p-2 rounded-md border"  @click="showWarning = false"/>
+            {{  warning }}
+          </div>
 
           <div></div>
         </div>
@@ -195,8 +202,9 @@ export default {
       slideCounter: 0,
       questionCounter: 0,
       Score: 0,
+      showWarning:false,
       next: true,
-
+      warning:'',
       disableLock: false,
       allSlides: [],
       currentSlide: {
@@ -278,6 +286,10 @@ export default {
         this.isRightAns = true;
         this.chekDisabled = false;
         this.$refs.quizSec.ShowAnsState(this.currentQuestion.answer);
+      }else{
+        this.showWarning = true;
+        this.warning = 'you Dont have Enough score points';
+
       }
     },
 
@@ -337,6 +349,10 @@ export default {
       } else {
         this.tryAgain = true;
         this.isRightAns = false;
+      }
+      if (this.slideCounter >= this.allSlides.length - 1) {
+        this.endLesson = true;
+        return;
       }
     },
     Exit() {

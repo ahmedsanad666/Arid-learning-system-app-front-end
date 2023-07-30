@@ -11,14 +11,14 @@
       </div>
       <ul class="space-x-6 grow justify-center hidden md:flex">
         <li :class="!dir ? 'mx-6 ' : ''">
-          <router-link :to="{ name: 'home' }"> {{ $t("home") }}</router-link>
+          <router-link :to="{ name: 'home' }"> الرئيسية</router-link>
         </li>
         <!-- <li>
           <router-link :to="{ name: 'about' }">{{ $t("about") }}</router-link>
         </li> -->
         <li>
           <router-link :to="{ name: 'courses' }"
-            >{{ $t("courses") }}
+            >الدورات
           </router-link>
         </li>
         <!-- <li>
@@ -48,10 +48,10 @@
         </router-link>
       </div>
       <div class="cursor-pointer">
-        <button v-if="isLoggedIn" @click="logOut()">logOut</button>
-        <router-link  v-else to="/auth">LogIn</router-link>
+        <button v-if="isLoggedIn" @click="logOut()">تسجيل الخروج</button>
+        <router-link  v-else to="/auth">تسجيل الدخول</router-link>
       </div>
-      <locale-switcher class="hidden"></locale-switcher>
+      <!-- <locale-switcher ></locale-switcher> -->
       <!-- ............. -->
       <!-- hamburger menu -->
       <button
@@ -70,18 +70,15 @@
           v-show="showMenu"
           class="menu absolute flex flex-col items-center bg-veryLightGray space-y-6 font-bold mt-6 drop-shadow-md right-6 py-5 left-6 rounded-lg bg-black/80 mx-auto w-3/4"
         >
-          <router-link to="#" href="" class="hover:text-brightRed"
-            >Home
+        <router-link :to="{ name: 'home' }"> الرئيسية</router-link>
+        <router-link :to="{ name: 'courses' }"
+            >الدورات
           </router-link>
-          <router-link to="#" href="" class="hover:text-brightRed"
-            >About</router-link
-          >
-          <router-link to="#" href="" class="hover:text-brightRed"
-            >About as</router-link
-          >
-          <router-link to="#" href="" class="hover:text-brightRed"
-            >Community</router-link
-          >
+          <router-link :to="{ name: 'Blogs' }">المدونة </router-link>
+          <div class="cursor-pointer">
+        <button v-if="isLoggedIn" @click="logOut()">تسجيل الخروج</button>
+        <router-link  v-else to="/auth">تسجيل الدخول</router-link>
+      </div>
         </div>
       </div>
     </div>

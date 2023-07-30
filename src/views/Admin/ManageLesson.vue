@@ -1,7 +1,7 @@
 <template>
     <section class="min-h-screen">
       <h1 class="my-4 py-2 font-bold md:text-3xl text-2xl text-center">
-    All chapter's lessons
+   جميع الدروس
       </h1>
   
       <base-spinner v-if="isLoading"></base-spinner>
@@ -11,7 +11,7 @@
             @click="addNew()"
             class="my-3 py-2 px-4 bg-slate-900 text-white"
           >
-            Add new
+            اضافة
           </button>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -54,7 +54,7 @@
                     تعديل
                   </button>
                   <router-link class="border text-black py-2 px-4  rounded-md" :to="`/Admin/Lessons/${el.id}`">
-                    اضافة شروحات 
+                    اضافة شرائح 
                   </router-link>
                   
                 </td>
@@ -212,7 +212,8 @@
           this.error = e.message || "failed to update";
         }
         this.isLoading = false;
-        this.$router.push("/courses");
+        location.reload();
+
       },
     },
   

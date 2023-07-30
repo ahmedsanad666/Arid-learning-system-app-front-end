@@ -20,13 +20,15 @@
       <h1 class="text-center py-3">Add Slide</h1>
       <form @submit.prevent="submitForm" class="space-y-3">
         <div class="flex flex-col shadow-md space-y-2">
-          <label for="content">المحتوى</label>
-          <textarea
+          <label for="editor-container">المحتوى</label>
+          <div id="editor-container" class="w-full  h-64 rounded-lg shadow-xl shadow-slate-400 outline-none py-4 px-3"  ></div>
+
+          <!-- <textarea
             class="shadow-lg rounded-md p-3"
             @blur="addCustomId()"
             v-model.trim="slide.content"
             placeholder="Slide Content"
-          ></textarea>
+          ></textarea> -->
         </div>
 
         <div
@@ -41,6 +43,7 @@
               placeholder="question tex"
               id="question"
               class="bg-zinc-400"
+              @blur="addCustomId()"
             ></textarea>
           </div>
 
@@ -107,7 +110,12 @@
 </template>
 
 <script>
-import { faTextHeight } from "@fortawesome/free-solid-svg-icons";
+// import { faTextHeight } from "@fortawesome/free-solid-svg-icons";
+import { QuillEditor } from '@vueup/vue-quill'
+import Quill from 'quill';
+
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+
 export default {
   data() {
     return {
@@ -195,6 +203,30 @@ export default {
   created() {
     this.getlessonId();
   },
+  mounted() {
+    const quillOptions = {
+        modules: {
+        toolbar: [
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['link', 'image', 'video'],
+          [{ align: [] }],
+          [{ header: [1, 2, false] }],
+         
+        ]
+      },
+      theme: 'snow'
+    };
+
+    this.quill = new Quill('#editor-container', quillOptions);
+    this.quill.on('text-change', () => {
+      this.slide.content = this.quill.root.innerHTML;
+    });
+  },
+  beforeUnmount() {
+    this.quill.off('text-change');
+  },
+
 };
 </script>
 

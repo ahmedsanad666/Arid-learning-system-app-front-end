@@ -55,7 +55,7 @@
                 </button>
              
                 <router-link  class=" py-2 px-4 rounded-md bg-amber-800 border" :to="`/Admin/${el.id}`">
-                  تفاصيل
+                 اضافة فصول
                 </router-link>
           
                 
@@ -202,8 +202,7 @@ export default {
           await this.$store.dispatch("courses/UpdateCourse", payload);
         }
 
-      console.log(payload);
-        // this.$router.push("/courses");
+          location.reload();
 
       } catch (e) {
         this.error = e.message || "failed to update";

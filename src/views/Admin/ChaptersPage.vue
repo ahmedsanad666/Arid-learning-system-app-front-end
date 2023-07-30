@@ -10,7 +10,7 @@
             @click="addNew()"
             class="my-3 py-2 px-4 bg-slate-900 text-white"
           >
-            Add new
+            اضافة
           </button>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -54,7 +54,7 @@
                     تعديل
                   </button>
                   <router-link class="border text-black py-2 px-4  rounded-md" :to="`/Admin/${el.course.id}/${el.id}`">
-                    تفاصيل 
+                    اضافة دروس
                   </router-link>
                   
                 </td>
@@ -203,7 +203,7 @@
           this.error = e.message || "failed to update";
         }
         this.isLoading = false;
-        this.$router.push("/courses");
+       location.reload();
       },
     },
   

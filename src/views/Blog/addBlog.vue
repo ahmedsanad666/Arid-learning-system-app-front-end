@@ -114,7 +114,7 @@ export default {
         toolbar: [
           ['bold', 'italic', 'underline', 'strike'],
           [{ list: 'ordered' }, { list: 'bullet' }],
-          
+          ['link', 'image', 'video'],
           [{ align: [] }],
           [{ header: [1, 2, false] }],
          

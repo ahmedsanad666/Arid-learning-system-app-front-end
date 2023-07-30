@@ -24,14 +24,15 @@ export default {
     //    this.IsAdmin =  currentUser.role ? !this.IsAdmin: this.IsAdmin;
     //   },
     lang() {
-      const currentLang = localStorage.getItem("lang");
-      if (currentLang === "ar") {
-        this.$i18n.locale = "ar";
-        document.querySelector("html").dir = "rtl";
-      } else {
-        this.$i18n.locale = "en";
-        document.querySelector("html").dir = "ltr";
-      }
+      // const currentLang = localStorage.getItem("lang");
+      // if (currentLang === "ar") {
+      //   this.$i18n.locale = "ar";
+      //   document.querySelector("html").dir = "rtl";
+      // } else {
+      //   this.$i18n.locale = "en";
+      //   document.querySelector("html").dir = "ltr";
+      // }
+      document.querySelector("html").dir = "rtl";
     },
 
    

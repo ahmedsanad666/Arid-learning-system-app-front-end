@@ -53,6 +53,8 @@
 
               />
               <p class="text-md text-red-800" v-if="!password.isValid"> {{ password.error }}</p>
+              <p class="text-md text-red-800" > كلكة المرور يجب ان تحتوى على احرف كبيره و صغيره و علامات خاصه</p>
+
 
             </div>
             <!-- <div class="flex items-center justify-between">
@@ -198,6 +200,7 @@
                 @blur="clearValidity('password')"
 
               />
+              <p class="text-md text-red-800" > كلكة المرور يجب ان تحتوى على احرف كبيره و صغيره و علامات خاصه</p>
               <p class="text-md text-red-800" v-if="!password.isValid"> {{ password.error }}</p>
 
             </div>
