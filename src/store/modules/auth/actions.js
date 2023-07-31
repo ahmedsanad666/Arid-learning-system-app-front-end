@@ -66,7 +66,6 @@ export default {
             throw error;
             
         }
-        console.log(responseData);
         localStorage.setItem('token', responseData.token);
         localStorage.setItem('userId', responseData.userId);
         localStorage.setItem('role', responseData.role);
