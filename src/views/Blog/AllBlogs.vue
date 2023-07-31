@@ -18,7 +18,7 @@
             <article class="overflow-hidden rounded-lg shadow-lg">
 
                 <router-link :to="`/Blogs/${blog.id}`">
-                    <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">
+                    <img alt="Placeholder" class="block h-auto w-full" :src="`data:image/jpeg;base64,${blog.imgByte}`">
                 </router-link>
 
                 <header class="flex items-center justify-between leading-tight p-2 md:p-4">
@@ -34,7 +34,7 @@
 
                 <footer class="flex items-center justify-between leading-none p-2 md:p-4">
                     <a class="flex items-center no-underline hover:underline text-black" href="#">
-                        <img alt="Placeholder" class="block rounded-full mx-4" src="https://picsum.photos/32/32/?random">
+                        <img alt="Placeholder" class="block rounded-full mx-4" :src="`data:image/jpeg;base64,${blog.cuUser.imgByte}`" >
                         <p class="ml-2 text-sm">
                            {{ blog.apiUser.userName}}
                         </p>
@@ -81,18 +81,25 @@ export default {
             try{
 
             await this.$store.dispatch('blog/AllBlogs');
+            await this.$store.dispatch("students/AllUsers");
            const  Blogs = this.$store.getters['blog/AllBlogs'];
             
+        const users = this.$store.getters["students/allUsers"];
 
            this.allBlogs = Blogs.map(blog => {
             const dateObj = dayjs(blog.createDate);
             const CreatedDate = dateObj.format('ddd MMM');
+            
+                const user = users.find(el => el.id === blog.apiUser.id);
+                console.log(user);
             return{
+               cuUser:user,
                 ...blog,
                 CreatedDate
             }  
         }) 
-        console.log(this.allBlogs);
+
+        console.log(this.allBlogs)
             }catch(e){
                 this.error = e.message || "Failed to Get Blogs Try Again later";
 
@@ -107,6 +114,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+footer{
 
+    img{
+        width:45px;
+    }
+}
 </style>

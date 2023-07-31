@@ -57,6 +57,7 @@ export default {
             await this.$store.dispatch('students/AllUsers')
                 let user = this.$store.getters['students/allUsers'].find((el)=> el.id == userId);
                 // console.log(this.$store.getters['students/allUsers']);
+                
                 // console.log(user);
                 this.userName = user.userName
             

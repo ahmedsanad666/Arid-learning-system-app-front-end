@@ -13,6 +13,9 @@
         >
           <span>{{ k}} | {{ item.apiUser.userName  }}</span>
           <span>{{ item.userPoints }}</span>
+          <!-- <div >
+                <img :src="`data:image/jpeg;base64,${item.imgByte}`"  />
+              </div> -->
         </li>
       </ul>
     </div>
@@ -36,7 +39,7 @@ export default {
 
         const users = this.$store.getters["students/allUsers"];
 
-        console.log(this.UsersData);
+      
         this.newData = this.UsersData.slice().sort(
           (a, b) => b.userPoints - a.userPoints
         );
@@ -46,7 +49,7 @@ export default {
   //         return { ...e, ...user };
   //       });
         console.log(this.newData);
-        // console.log(this.newData[0]);
+        
       } catch (e) {
         console.log(e);
       }
@@ -63,5 +66,8 @@ export default {
 li:nth-child(odd) {
   background: #444654;
   color: #ecf0f1;
+}
+img{
+  width:45px;
 }
 </style>

@@ -4,7 +4,7 @@ export default {
           const responseData = await response.json();
         
           if (!response.ok) {
-            const error = new Error(responseData.message || 'failed to get users');
+            const error = new Error(responseData.message || "failed");
       
             throw error;
           }
@@ -13,7 +13,7 @@ export default {
             allUsers.push(element);       
            });
 
-    
+    console.log(allUsers);
             context.commit("setAllUsers",allUsers);
         },
         async UpdateUser(context,payload){
@@ -21,20 +21,20 @@ export default {
 
         
          
-          const headers = {
+          // const headers = {
             
-            'Content-Type': 'application/json'
-          };
+          //   'Content-Type': 'application/json'
+          // };
     
           const response = await fetch(`https://localhost:7263/arid/auth/updateuser`,
           {
             method:'POST',  
-            headers,
-            body: JSON.stringify(payload)
+            // headers,
+            body: payload
           });
           // const responseData = await response.json();
           
-          console.log(JSON.stringify(payload));
+          // console.log(JSON.stringify(payload));
           if(!response.ok){
             // const err = new Error(responseData.message|| 'failed ');
             console.log( response);

@@ -1,6 +1,7 @@
 <template>
   <section class="bg-gray-50 bg-gray-900  min-h-screen py-4 my-3">
     <h1 class="text-center text-red-700 tex-2xl" v-if="error">{{ error }}</h1>
+    <base-spinner v-if="isLoding"></base-spinner>
     <!-- ............................................ login system ........................................................... -->
     <div
       class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
@@ -204,7 +205,7 @@
               <p class="text-md text-red-800" v-if="!password.isValid"> {{ password.error }}</p>
 
             </div>
-            <div>
+            <!-- <div>
               <label for="role">اختر دور :</label>
               <select v-model.trim="role.val" id="role">
                 <option value="user">مستخدم</option>
@@ -213,7 +214,7 @@
               <p class="text-md text-red-800" v-if="!role.isValid"> {{ role.error }}</p>
 
               
-            </div>
+            </div> -->
             <button
             
               type="submit"
@@ -262,11 +263,11 @@ export default {
         isValid:true ,
         error:''
       },
-      role:{
-        val:'',
-        isValid:true ,
-        error:''
-      },
+      // role:{
+      //   val:'',
+      //   isValid:true ,
+      //   error:''
+      // },
       password: {
         val:'',
         isValid:true ,
@@ -321,11 +322,11 @@ export default {
           this.userName.error = "لا يمكن ان يكون الحقل خال"
           this.ValidForm = false;
         };
-        if(this.role.val === '' ){
-          this.role.isValid = false
-          this.role.error = "لا يمكن ان يكون الحقل خال"
-          this.ValidForm = false;
-        };
+        // if(this.role.val === '' ){
+        //   this.role.isValid = false
+        //   this.role.error = "لا يمكن ان يكون الحقل خال"
+        //   this.ValidForm = false;
+        // };
 
         if(this.password.val === '' || this.password.val.length < 6){
           this.password.isValid = false
@@ -345,10 +346,10 @@ export default {
         lastName: this.lastName.val,
         userName: this.userName.val,
         email: this.email.val,
-        role: this.role.val,
+        // role: this.role.val,
         password: this.password.val,
       };
-
+this.isLoding = true;
       try{
         console.log(userData);
        await this.$store.dispatch("auth/signUp",userData);
@@ -357,6 +358,7 @@ export default {
       }catch(e){
      this.error = e.messsage || 'failed try again';
     }
+    this.isLoding = false;
 
 
 
@@ -372,6 +374,7 @@ export default {
         email: this.email.val,
         password: this.password.val,
       };
+      this.isLoding = true;
 
       try{
        await this.$store.dispatch("auth/logIn",userData);
@@ -380,6 +383,8 @@ export default {
       }catch(e){
       this.error  = e.messsage || "failed try again";
     }
+    this.isLoding = false;
+
   }
 }}
 </script>
