@@ -25,21 +25,21 @@
             <input type="text" v-model.trim="id" hidden />
             <!-- <input type="text" v-model.trim="role" hidden /> -->
             <div class="form-controller">
-              <label for="firstName">الاسم</label>
+              <label for="firstName">الاسم بالعربية</label>
               <input
                 type="text"
                 id="firstName"
-                placeholder="الاسم"
-                v-model.trim="firstName"
+                placeholder="الاسم بالعربية"
+                v-model.trim="ArName"
               />
             </div>
             <div class="form-controller">
-              <label for="lastname">الكنيه</label>
+              <label for="lastname">الاسم بالانجليزية</label>
               <input
                 type="text"
                 id="lastname"
-                placeholder="الكنيه"
-                v-model.trim="lastName"
+                placeholder="الاسم بالانجليزية"
+                v-model.trim="EnName"
               />
             </div>
             <div class="form-controller">
@@ -51,7 +51,7 @@
                 v-model.trim="email"
               />
             </div>
-            <div class="form-controller">
+            <!-- <div class="form-controller">
               <label for="pass">كلمة المرور</label>
               <input
                 type="password"
@@ -59,7 +59,7 @@
                 placeholder=" كلمة المرور"
                 v-model.trim="password"
               />
-            </div>
+            </div> -->
           </div>
         </div>
         <button
@@ -80,8 +80,8 @@ export default {
       selectedFile: null,
       imageUrl:null,
       id: "",
-      firstName: "",
-      lastName: "",
+      ArName: "",
+      EnName: "",
       email: "",
       password: "",
       ValidForm: true,
@@ -105,14 +105,15 @@ export default {
         let user = this.$store.getters["students/allUsers"].find(
           (el) => el.id == userId
         );
+        
         this.id = user.id;
         this.email = user.email;
-        this.firstName = user.firstName;
-        this.lastName = user.lastName;
+        this.ArName = user.enName;
+        this.EnName = user.arName;
         this.password = user.password;
         this.imageUrl = "data:image/jpeg;base64," + user.imgByte;
         //    this.role = user.role;
-        console.log(this.id);
+        
       } catch (e) {
         console.log(e);
       }
@@ -120,8 +121,8 @@ export default {
     async updateUser() {
       if (
         this.email === "" ||
-        this.firstName === "" ||
-        this.lastName === "" ||
+        this.arName === "" ||
+        this.enName === "" ||
         this.password === ""
       ) {
         this.ValidForm = false;
@@ -130,10 +131,10 @@ export default {
 
       const data = new FormData();
       data.append("id", this.id);
-      data.append("firstName", this.firstName);
-      data.append("lastName", this.lastName);
+      data.append("enName", this.EnName);
+      data.append("arName", this.ArName);
       data.append("email", this.email);
-      data.append("lastName", this.password);
+      // data.append("password", this.password);
       data.append("files", this.selectedFile);
 
       // let payload = {

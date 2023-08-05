@@ -25,7 +25,7 @@
                 <th scope="col" class="px-6 py-3">عنوان الدرس</th>
                 <th scope="col" class="px-6 py-3">الترتيب </th>
                 <th scope="col" class="px-6 py-3">مفعل</th>
-                <th scope="col" class="px-6 py-3">#</th>
+                <th scope="col" class="px-6 py-3 text-center">التحكم</th>
               </tr>
             </thead>
             <tbody>
@@ -132,9 +132,12 @@
           await this.$store.dispatch("courses/LoadLessons");
           await this.$store.dispatch("courses/userchapters");
           this.allLessons = this.$store.getters["courses/allLessons"].filter(el => el.courseId == courseId && el.chapterId == chapterid);
+          this.updateCourseData.index = this.allLessons.length + 1 ;
+
         } catch (e) {
           this.Error = "failed to Get Courses" || e.message;
         }
+
         this.isLoading = false;
       },
       async DeleteChapter(id) {
@@ -145,7 +148,9 @@
           await this.$store.dispatch("courses/deletelesson", id);
 
           await this.$store.dispatch("courses/AllCourses");
-          this.allLessons = this.$store.getters["courses/allLessons"].filter(el => el.courseId == courseId && el.chapterId == chapterid);
+          // this.allLessons = this.$store.getters["courses/allLessons"].filter(el => el.courseId == courseId && el.chapterId == chapterid);
+          location.reload();
+          
         } catch (e) {
           this.error = e.message || "failed to delete";
         }

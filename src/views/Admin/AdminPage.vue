@@ -1,7 +1,7 @@
 <template>
   <section class="min-h-screen">
     <h1 class="my-4 py-2 font-bold md:text-3xl text-2xl text-center">
-      صفحات التحكم
+     اضافة دورات
     </h1>
 
     <base-spinner v-if="isLoading"></base-spinner>
@@ -23,10 +23,10 @@
           >
             <tr>
               <th scope="col" class="px-6 py-3">عنوان الكورس</th>
-              <th scope="col" class="px-6 py-3">الوصف</th>
+              <th scope="col" class="px-6 py-3 text-start">الوصف</th>
               <th scope="col" class="px-6 py-3">تاريخ</th>
               <th scope="col" class="px-6 py-3">اخر تحيث</th>
-              <th scope="col" class="px-6 py-3">#</th>
+              <th scope="col" class="px-6 py-3  text-center">التحكم</th>
             </tr>
           </thead>
           <tbody>
@@ -37,9 +37,9 @@
               >
                 {{ el.name }}
               </th>
-              <td class="px-6 py-4">{{ el.description }}</td>
-              <td class="px-6 py-4">{{ el.createdDate }}</td>
-              <td class="px-6 py-4">{{ el.updatedDate }}</td>
+              <td class="px-6 py-4 des">{{ el.description }}</td>
+              <td class="px-6 py-4">{{ el.Date }}</td>
+              <td class="px-6 py-4">{{ el.updateD }}</td>
               <td class="px-6 py-4 space-x-4 space-y-3 text-center text-white">
                 <button
                   @click="DeleteCourse(el.id)"
@@ -111,6 +111,7 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
 export default {
   data() {
     return {
@@ -136,7 +137,26 @@ export default {
 
       try {
         await this.$store.dispatch("courses/AllCourses");
-        this.allCourses = this.$store.getters["courses/allCourses"];
+        this.allCourses= this.$store.getters["courses/allCourses"];
+       this.allCourses = this.allCourses.map(el =>{
+
+        const dateObj = dayjs(el.CreatedDate);
+            const Date = dateObj.format('ddd MMM');
+        const update = dayjs(el.updatedDate);
+            const updateD = update.format('ddd MMM');
+
+
+            {
+              return{
+                ...el,
+                
+                Date,
+                updateD
+              }
+            }
+
+       })
+
       } catch (e) {
         this.Error = "failed to Get Courses" || e.message;
       }
@@ -247,5 +267,12 @@ textarea:focus {
   border-color: #3d008d;
   background-color: #faf6ff;
   outline: none;
+}
+.des{
+  text-align: right;
+  max-width: 13em;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
 }
 </style>

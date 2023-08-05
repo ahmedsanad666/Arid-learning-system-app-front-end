@@ -13,9 +13,20 @@ export default {
             allUsers.push(element);       
            });
 
-    console.log(allUsers);
             context.commit("setAllUsers",allUsers);
         },
+
+
+
+
+
+
+
+
+
+
+
+
         async UpdateUser(context,payload){
 
 

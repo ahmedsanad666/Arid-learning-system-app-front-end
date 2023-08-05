@@ -107,7 +107,7 @@
               <label
                 for="email"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >الاسم
+                >الاسم بالعربي
               </label>
               <input
                 type="text"
@@ -128,7 +128,7 @@
               <label
                 for="email"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >الكنية</label
+                >الاسم بالانجليزي</label
               >
               <input
                 type="text"
@@ -342,8 +342,8 @@ export default {
         return;
       }
       const userData = {
-        firstName: this.firstName.val,
-        lastName: this.lastName.val,
+        arName: this.firstName.val,
+        enName: this.lastName.val,
         userName: this.userName.val,
         email: this.email.val,
         // role: this.role.val,

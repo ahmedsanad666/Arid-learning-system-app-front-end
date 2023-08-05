@@ -91,7 +91,7 @@ export default {
             const CreatedDate = dateObj.format('ddd MMM');
             
                 const user = users.find(el => el.id === blog.apiUser.id);
-                console.log(user);
+             
             return{
                cuUser:user,
                 ...blog,
@@ -99,7 +99,7 @@ export default {
             }  
         }) 
 
-        console.log(this.allBlogs)
+     
             }catch(e){
                 this.error = e.message || "Failed to Get Blogs Try Again later";
 

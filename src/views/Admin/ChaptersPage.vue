@@ -25,7 +25,7 @@
                 <th scope="col" class="px-6 py-3">الترتيب </th>
                 <th scope="col" class="px-6 py-3">مخفى</th>
                 <th scope="col" class="px-6 py-3"> عنوان اكورس</th>
-                <th scope="col" class="px-6 py-3">#</th>
+                <th scope="col" class="px-6 py-3 text-center">التحكم</th>
               </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                 >
                   {{ el.name }}
                 </th>
-                <td class="px-6 py-4">{{ el.name }}</td>
+                <!-- <td class="px-6 py-4">{{ el.name }}</td> -->
                 <td class="px-6 py-4">{{ el.index }}</td>
                 <td class="px-6 py-4">{{ el.isHidden ?'غير مفعل ' : 'مفعل' }}</td>
                 <td class="px-6 py-4">{{ el.course.name }}</td>
@@ -127,6 +127,7 @@
           await this.$store.dispatch("courses/userchapters");
 
           this.allChapters = this.$store.getters["courses/CoureChapters"].filter(el => el.courseId == courseId);
+          this.updateCourseData.index = this.allChapters.length + 1 ;
         } catch (e) {
           this.Error = "failed to Get Courses" || e.message;
         }
@@ -140,6 +141,7 @@
           await this.$store.dispatch("courses/deletechapter", id);
           await this.$store.dispatch("courses/AllCourses");
           this.allChapters = this.$store.getters["courses/CoureChapters"].filter(el => el.courseId == courseId);
+          location.reload();
         } catch (e) {
           this.error = e.message || "failed to delete";
         }

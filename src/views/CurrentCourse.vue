@@ -93,9 +93,12 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
+
 import BaseIntro from "@/components/bases/BaseIntro.vue";
 import "vue3-circle-progress/dist/circle-progress.css";
 import CircleProgress from "vue3-circle-progress";
+import CurrentCoursesVue from '@/components/Courses/CurrentCourses.vue';
 export default {
   components: { BaseIntro, CircleProgress },
 
@@ -212,10 +215,14 @@ console.log(this.progressData);
           lessons: this.courseLessons,
         };
         
+
+      const dateObj = dayjs(currentCourseData.startedData);
+            const CreatedDate = dateObj.format('ddd MMM');
+
         this.userProgress.userPoints = currentCourseData.userPoint;
         this.CourseDetails.name = currentCourseData.CourseDetails.name;
         this.CourseDetails.des = currentCourseData.CourseDetails.des;
-        this.CourseDetails.startedData = currentCourseData.startedData;
+        this.CourseDetails.startedData = CreatedDate;
         // this.userProgress.progress = currentCourseData.progress;
         this.chapters = currentCourseData.chapters;
         this.lessons = currentCourseData.lessons;

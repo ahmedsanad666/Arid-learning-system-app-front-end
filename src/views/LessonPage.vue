@@ -1,5 +1,15 @@
 <template>
   <section class="bg-mianColor h-screen py-4 relative">
+    <!-- <div  v-if="currentState === 'studying'">
+
+     <img src="../assets/images/gif/studying.gif" alt="" class="w-[50px] m-auto">
+    </div> -->
+    <audio ref="correct" preload="auto" class="hidden">
+      <source src="../assets/images/audio/correct.mp3" type="audio/mp3" />
+    </audio>
+    <audio ref="fail" preload="auto" class="hidden">
+      <source src="../assets/images/audio/fail.mp3" type="audio/mp3" />
+    </audio>
     <div
       class="flex justify-between items-center mx-auto py-6 mb-3 w-[90%] border-secondText border-b"
     >
@@ -55,7 +65,7 @@
         ></div>
         <!-- :rightAns="rightAns" -->
         <!-- quiz section -->
-        <div v-else class="space-y-4">
+        <div v-else-if="currentState == 'quize'" class="space-y-4">
           <quiz-section
             :question="currentQuestion.questionText"
             :choices="currentQuestion.choices"
@@ -66,28 +76,44 @@
 
           <div
             v-if="isRightAns && checkedMode"
-            class="max-w-xl mx-auto flex justify-center items-center rounded-md border-2 text-green-900 md:text-3xl text-xl border-green-700 py-4 px-3"
+            class="max-w-xl mx-auto flex flex-col justify-center items-center rounded-md text-green-900 md:text-3xl text-xl py-4 px-3"
           >
-            <font-awesome-icon :icon="['fas', 'check']" class="mx-4" />
-
-            Great Right Answer
+            <img src="../assets/images/gif/GreatWork.gif" class="greatWork" />
+            <p class="text-center py-2 my-1">Keep Going !!</p>
           </div>
           <div
             v-if="!isRightAns && checkedMode"
-            class="border-2 max-w-xl mx-auto flex justify-center items-center rounded-md text-red-900 md:text-3xl text-xl border-red-500 py-4 px-3"
+            class="max-w-xl mx-auto flex justify-center items-center rounded-md text-red-900 md:text-3xl text-xl py-4 px-3 w-[24rem]"
           >
-            <font-awesome-icon :icon="['fas', 'xmark']" class="mx-4" /> Wront
-            Answer
+            <img src="../assets/images/gif/Wrong.gif" class="Wrong" />
           </div>
           <div
-           v-if="showWarning "
+            v-if="showWarning"
             class="border-2 max-w-xl mx-auto flex justify-center relative items-center rounded-md text-red-900 md:text-3xl text-xl border-red-500 py-4 px-3"
           >
-          <font-awesome-icon :icon="['fas', 'xmark']" class=" cursor-pointer  absolute right-2 top-2  p-2 rounded-md border"  @click="showWarning = false"/>
-            {{  warning }}
+            <font-awesome-icon
+              :icon="['fas', 'xmark']"
+              class="cursor-pointer absolute right-2 top-2 p-2 rounded-md border"
+              @click="showWarning = false"
+            />
+            {{ warning }}
           </div>
 
           <div></div>
+        </div>
+        <div v-else>
+          <div class="flex flex-col items-center justify-center">
+            <img
+              src="../assets/images/gif/endLesson.gif"
+              class="py-4 my-3 endImg"  
+            />
+            <h3 class="text-2xl font-bold text-center py-3  text-zinc-600 "> lesson completed!</h3>
+            <p
+              class="py-2 text-center md:text-2xl text-xl text-slate-500 max-w-xl font-sans"
+            >
+              You’re one step closer to reaching your goal!
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -159,9 +185,16 @@
           <button
             @click="updateCourseData()"
             class="py-3 px-9 rounded-xl mx-8 text-mianColor bg-red-700"
-            v-if="endLesson && isRightAns"
+            v-if="endLesson && isRightAns && currentState != 'EndLesson'"
           >
             End Lesson
+          </button>
+          <button
+            @click="goToMainPage()"
+            class="py-3 px-9 rounded-xl mx-8 text-mianColor  bg-teal-500"
+            v-if="currentState == 'EndLesson'"
+          >
+            Continue
           </button>
           <button
             ref="nextLesson"
@@ -190,7 +223,7 @@ export default {
 
   data() {
     return {
-      lesssonNumber : 0,
+      lesssonNumber: 0,
       currentState: "studying",
       lessonName: "",
       currentChoice: 1,
@@ -202,9 +235,9 @@ export default {
       slideCounter: 0,
       questionCounter: 0,
       Score: 0,
-      showWarning:false,
+      showWarning: false,
       next: true,
-      warning:'',
+      warning: "",
       disableLock: false,
       allSlides: [],
       currentSlide: {
@@ -243,6 +276,16 @@ export default {
     },
   },
   methods: {
+    goToMainPage(){
+      this.$router.go(-1);
+    },
+    correctAudio() {
+      this.$refs.correct.play();
+    },
+    failAudio() {
+      this.$refs.fail.play();
+    },
+
     HideCommentBox() {
       this.commentBox = false;
       this.$refs.CommentBox.classList.add("hideBox");
@@ -261,20 +304,25 @@ export default {
       let userId = this.$store.getters["auth/userId"];
       // .................
       let CourseData = this.$store.getters["courses/UserCourses"].find(
-        (el) => el.apiUserId == userId && el.courseId == currentLesson[0].courseId
+        (el) =>
+          el.apiUserId == userId && el.courseId == currentLesson[0].courseId
       );
 
       const payload = {
         id: CourseData.id,
         apiUserId: userId,
-        lastLesson: this.lesssonNumber === CourseData.lastLesson ? CourseData.lastLesson :  CourseData.lastLesson + 1 ,
+        lastLesson:
+          this.lesssonNumber === CourseData.lastLesson
+            ? CourseData.lastLesson
+            : CourseData.lastLesson + 1,
         userPoints: this.Score + CourseData.userPoints,
         courseId: currentLesson[0].courseId,
       };
 
       try {
         await this.$store.dispatch("courses/updateUserCourse", payload);
-        this.$router.go(-1);
+        this.currentState = "EndLesson";
+        this.correctAudio();
       } catch (e) {
         console.log(e);
       }
@@ -286,15 +334,13 @@ export default {
         this.isRightAns = true;
         this.chekDisabled = false;
         this.$refs.quizSec.ShowAnsState(this.currentQuestion.answer);
-      }else{
+      } else {
         this.showWarning = true;
-        this.warning = 'you Dont have Enough score points';
-
+        this.warning = "you Dont have Enough score points";
       }
     },
 
     async nextSlideB() {
-     
       this.slideCounter++;
       this.isRightAns = false;
       this.tryAgain = false;
@@ -346,9 +392,11 @@ export default {
       if (choice == rithAns) {
         this.Score = this.Score + this.currentQuestion.point;
         this.isRightAns = true;
+        this.correctAudio();
       } else {
         this.tryAgain = true;
         this.isRightAns = false;
+        this.failAudio();
       }
       if (this.slideCounter >= this.allSlides.length - 1) {
         this.endLesson = true;
@@ -367,16 +415,16 @@ export default {
 
         let allSlides = this.$store.getters["courses/allLessons"];
         let currentLesson = allSlides.filter((el) => el.id == lessonId);
-      
-        const [{ name: lessonName, slides: lessonSlide,courseId: CourseId  }] = currentLesson;
-        
-   
-       
-      /// get all lessons number to prevent increase the last lesson num in db in the last lesson 
-      this.lesssonNumber = allSlides.filter(el=> el.courseId === CourseId).length;
+
+        const [{ name: lessonName, slides: lessonSlide, courseId: CourseId }] =
+          currentLesson;
+
+        /// get all lessons number to prevent increase the last lesson num in db in the last lesson
+        this.lesssonNumber = allSlides.filter(
+          (el) => el.courseId === CourseId
+        ).length;
         this.allSlides = lessonSlide;
         this.lessonName = lessonName;
-
 
         this.loadCurrentSlide();
       } catch (e) {}
@@ -404,12 +452,14 @@ export default {
     backToSlides() {
       this.currentState = "studying";
     },
+    EndLessonSec() {
+      this.currentState = "EndLesson";
+    },
   },
 
   created() {
     this.getAllSlides();
     // this.loadCurrentSlide();
-    console.log(this.commentsCount);
   },
 };
 </script>
@@ -446,7 +496,27 @@ export default {
 }
 .commentBox {
   transition: 0.3s all linear;
-  background:rgb(241 241 241);
+  background: rgb(241 241 241);
   z-index: 10;
+}
+.greatWork {
+  width: 62%;
+
+  height: 65px;
+  border-radius: 10px;
+
+  filter: drop-shadow(2px 4px 6px black);
+}
+.Wrong {
+  width: 50%;
+
+  height: 50%;
+  border-radius: 50% 50%;
+
+  filter: drop-shadow(2px 4px 6px black);
+}
+.endImg {
+  width: 20rem;
+  margin: auto;
 }
 </style>

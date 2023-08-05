@@ -17,9 +17,7 @@
           <router-link :to="{ name: 'about' }">{{ $t("about") }}</router-link>
         </li> -->
         <li>
-          <router-link :to="{ name: 'courses' }"
-            >الدورات
-          </router-link>
+          <router-link :to="{ name: 'courses' }">الدورات </router-link>
         </li>
         <!-- <li>
           <router-link :to="{ name: 'gallery' }">{{
@@ -27,10 +25,10 @@
           }}</router-link>
         </li> -->
         <li v-if="isLoggedIn">
-          <router-link  :to="{ name: 'LeaderBoard' }"> LeaderBoard </router-link>
+          <router-link :to="{ name: 'LeaderBoard' }"> LeaderBoard </router-link>
         </li>
 
-        <li v-if="isLoggedIn && isAdmin ">
+        <li v-if="isLoggedIn && isAdmin">
           <router-link :to="{ name: 'admin' }">لوحة التحكم</router-link>
         </li>
         <li>
@@ -38,18 +36,27 @@
         </li>
       </ul>
 
-      <div class="cursor-pointer"  v-if="isLoggedIn">
+      <div
+        class="cursor-pointer flex items-center justify-center"
+        v-if="isLoggedIn"
+      >
+        <span
+          class="border md:py-1 md:px-3 md:rounded-full text- mx-3 md:block hidden"
+        >
+          {{ allPoints }} Point
+        </span>
         <router-link :to="{ name: 'Profile' }">
-          <font-awesome-icon
+          <!-- <font-awesome-icon
             :icon="['fas', 'user']"
             size="xl"
             class="p-2 rounded-full hover:bg-redColor shadow-slate-900 shadow-sm hover:border-none hover:shadow-md transition-all"
-          />
+          /> -->
+          <img :src="imgUrl" class="w-[2rem] rounded-full" alt="">
         </router-link>
       </div>
       <div class="cursor-pointer">
         <button v-if="isLoggedIn" @click="logOut()">تسجيل الخروج</button>
-        <router-link  v-else to="/auth">تسجيل الدخول</router-link>
+        <router-link v-else to="/auth">تسجيل الدخول</router-link>
       </div>
       <!-- <locale-switcher ></locale-switcher> -->
       <!-- ............. -->
@@ -70,15 +77,13 @@
           v-show="showMenu"
           class="menu absolute flex flex-col items-center bg-veryLightGray space-y-6 font-bold mt-6 drop-shadow-md right-6 py-5 left-6 rounded-lg bg-black/80 mx-auto w-3/4"
         >
-        <router-link :to="{ name: 'home' }"> الرئيسية</router-link>
-        <router-link :to="{ name: 'courses' }"
-            >الدورات
-          </router-link>
+          <router-link :to="{ name: 'home' }"> الرئيسية</router-link>
+          <router-link :to="{ name: 'courses' }">الدورات </router-link>
           <router-link :to="{ name: 'Blogs' }">المدونة </router-link>
           <div class="cursor-pointer">
-        <button v-if="isLoggedIn" @click="logOut()">تسجيل الخروج</button>
-        <router-link  v-else to="/auth">تسجيل الدخول</router-link>
-      </div>
+            <button v-if="isLoggedIn" @click="logOut()">تسجيل الخروج</button>
+            <router-link v-else to="/auth">تسجيل الدخول</router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -93,14 +98,16 @@ export default {
   data() {
     return {
       showMenu: false,
+      allPoints: 0,
+      imgUrl:'',
     };
   },
   computed: {
     isLoggedIn() {
-      return this.$store.getters['auth/isAuthenticated']
+      return this.$store.getters["auth/isAuthenticated"];
     },
     isAdmin() {
-      return this.$store.getters['auth/isAdmin']
+      return this.$store.getters["auth/isAdmin"];
     },
     currentRoute() {
       return this.$route.name == "home";
@@ -111,6 +118,22 @@ export default {
   },
 
   methods: {
+    async currentUser() {
+      let userId = this.$store.getters["auth/userId"];
+
+      try {
+        await this.$store.dispatch("students/AllUsers");
+        let user = this.$store.getters["students/allUsers"].find(
+          (el) => el.id == userId
+        );
+   
+    
+        this.imgUrl = "data:image/jpeg;base64," + user.imgByte;
+       
+      } catch (e) {
+        console.log(e);
+      }
+    },
     logOut() {
       this.$store.dispatch("auth/logout");
       this.$router.replace("/home");
@@ -118,6 +141,28 @@ export default {
     show() {
       this.showMenu = !this.showMenu;
     },
+    async userPoints() {
+      try {
+        await this.$store.dispatch("courses/userCourses");
+        const currentUserId = this.$store.getters["auth/userId"];
+
+        const userCoursesData = this.$store.getters[
+          "courses/UserCourses"
+        ].filter((el) => el.apiUserId === currentUserId);
+
+        userCoursesData.forEach((element) => {
+          this.allPoints = this.allPoints + element.userPoints;
+        });
+        console.log(this.allPoints);
+      } catch (e) {
+        this.Error = "failed to Get Courses" || e.message;
+        console.log;
+      }
+    },
+  },
+  created() {
+    this.userPoints();
+    this.currentUser();
   },
 };
 </script>
